@@ -28,11 +28,11 @@ public final class Home extends javax.swing.JFrame {
     }
     public void numberOfBook() {
         String count = String.valueOf(db.getNumber("book"));
-        numOfBooks.setText(count);
+        numOfBook.setText(count);
     }
     public void numberOfStudent() {
         String count = String.valueOf(db.getNumber("student"));
-        numOfStudents.setText(count);
+        numOfStudent.setText(count);
     }
     public void numberOfIssue() {
         String count = String.valueOf(db.getNumber("`student issued book`"));
