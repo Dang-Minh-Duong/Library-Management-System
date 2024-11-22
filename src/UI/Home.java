@@ -8,23 +8,42 @@ import dao.DbConnectivity;
  *
  * @author Lenovo
  */
-public class Home extends javax.swing.JFrame {
+public final class Home extends javax.swing.JFrame {
 
     /**
      * Creates new form Home
      */
-    private DbConnectivity db = new DbConnectivity();
+    private final DbConnectivity db = new DbConnectivity();
     public Home() {
         initComponents();
+        numberOfBook();
+        numberOfBook();
+        numberOfIssue();
+        numberOfList();
+        
         
         
         
         
     }
     public void numberOfBook() {
-        int count = db.getNumber("book");
-        
+        String count = String.valueOf(db.getNumber("book"));
+        numOfBooks.setText(count);
     }
+    public void numberOfStudent() {
+        String count = String.valueOf(db.getNumber("student"));
+        numOfStudents.setText(count);
+    }
+    public void numberOfIssue() {
+        String count = String.valueOf(db.getNumber("`student issued book`"));
+        numOfIssue.setText(count);
+    }
+    public void numberOfList() {
+        String count = String.valueOf(db.getDefaulter());
+        numOfList.setText(count);
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,15 +84,15 @@ public class Home extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
+        numOfBooks = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
+        numOfStudents = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
+        numOfList = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
@@ -83,7 +102,7 @@ public class Home extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
+        numOfIssue = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
@@ -273,20 +292,20 @@ public class Home extends javax.swing.JFrame {
         jPanel16.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Book_Shelf_50px.png"))); // NOI18N
-        jLabel17.setText("10");
-        jPanel16.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
+        numOfBooks.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
+        numOfBooks.setForeground(new java.awt.Color(102, 102, 102));
+        numOfBooks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Book_Shelf_50px.png"))); // NOI18N
+        numOfBooks.setText("10");
+        jPanel16.add(numOfBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
 
         jPanel17.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 102, 102)));
         jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_People_50px.png"))); // NOI18N
-        jLabel18.setText("10");
-        jPanel17.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
+        numOfStudents.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
+        numOfStudents.setForeground(new java.awt.Color(102, 102, 102));
+        numOfStudents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_People_50px.png"))); // NOI18N
+        numOfStudents.setText("10");
+        jPanel17.add(numOfStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(102, 102, 102));
@@ -308,11 +327,11 @@ public class Home extends javax.swing.JFrame {
         jPanel19.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 102, 102)));
         jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_List_of_Thumbnails_50px.png"))); // NOI18N
-        jLabel22.setText("10");
-        jPanel19.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
+        numOfList.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
+        numOfList.setForeground(new java.awt.Color(102, 102, 102));
+        numOfList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_List_of_Thumbnails_50px.png"))); // NOI18N
+        numOfList.setText("10");
+        jPanel19.add(numOfList, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(102, 102, 102));
@@ -347,11 +366,11 @@ public class Home extends javax.swing.JFrame {
         jPanel23.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Sell_50px.png"))); // NOI18N
-        jLabel29.setText("10");
-        jPanel23.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
+        numOfIssue.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
+        numOfIssue.setForeground(new java.awt.Color(102, 102, 102));
+        numOfIssue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Sell_50px.png"))); // NOI18N
+        numOfIssue.setText("10");
+        jPanel23.add(numOfIssue, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 130, 60));
 
         jLabel30.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(102, 102, 102));
@@ -525,7 +544,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel15Layout.createSequentialGroup()
                     .addGap(99, 99, 99)
                     .addComponent(jLabel24)
-                    .addContainerGap(1294, Short.MAX_VALUE)))
+                    .addContainerGap(1297, Short.MAX_VALUE)))
             .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel15Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -562,7 +581,7 @@ public class Home extends javax.swing.JFrame {
 
         getContentPane().add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 1330, 960));
 
-        setSize(new java.awt.Dimension(1177, 960));
+        setSize(new java.awt.Dimension(1669, 1028));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -613,20 +632,16 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -666,6 +681,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel numOfBooks;
+    private javax.swing.JLabel numOfIssue;
+    private javax.swing.JLabel numOfList;
+    private javax.swing.JLabel numOfStudents;
     private rojeru_san.complementos.RSTableMetro rSTableMetro2;
     private rojeru_san.complementos.RSTableMetro rSTableMetro3;
     // End of variables declaration//GEN-END:variables

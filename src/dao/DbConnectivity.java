@@ -8,6 +8,7 @@ import model.*;
 
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -150,5 +151,20 @@ public class DbConnectivity {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public int getDefaulter() {
+        long currentTime = System.currentTimeMillis();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String todayDate = df.format(currentTime);
+        String query = String.format("Select count(*) from `student issued book` where `Due date` < '%s' and status = 'Borrowing'", todayDate);
+        int count = 0;
+        try {
+            ResultSet rs = stmt.executeQuery(query);
+            if (!rs.next()) count = rs.getInt(1);
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return count;
     }
 }
