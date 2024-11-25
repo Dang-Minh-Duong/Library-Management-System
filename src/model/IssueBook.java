@@ -10,10 +10,10 @@ package model;
  *
  * @author Lenovo
  */
-public class StudentIssueBook {
+public class IssueBook {
     private int id;
     private String isbn,issueDate,dueDate;
-    public StudentIssueBook(int id, String isbn,String issueDate,String dueDate) {
+    public IssueBook(int id, String isbn,String issueDate,String dueDate) {
         this.id = id;
         this.isbn=isbn;
         this.dueDate=dueDate;

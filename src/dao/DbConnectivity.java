@@ -142,7 +142,7 @@ public class DbConnectivity {
             throw new RuntimeException(e);
         }
     }
-    public void addNewStudentIssueBook (StudentIssueBook studentIssueBook) {
+    public void addNewStudentIssueBook (IssueBook studentIssueBook) {
         String query = String.format("Insert into `student issued book` values (%d, '%s', '%s', '%s', '%s')",
                 studentIssueBook.getId(), studentIssueBook.getIsbn(),
                 studentIssueBook.getIssueDate(),studentIssueBook.getDueDate(),"Borrowing");
