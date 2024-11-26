@@ -134,14 +134,21 @@ public class DbConnectivity {
         }
         return result ;
     }
+    
     public void updateQuantity(String isbn) {
-        String query = String.format("update book set quantity=quantity-1 where isbn = '%s'", isbn);
-        try {
+        String query = String.format("UPDATE book SET quantity = quantity - 1 WHERE isbn = '%s'", isbn);
+
+        try (Connection con = DBconnection.getConnection();
+             Statement stmt = con.createStatement()) {
+
             stmt.executeUpdate(query);
-        } catch (SQLException e) {
+
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
+
     public void addNewStudentIssueBook (IssueBook studentIssueBook) {
         String query = String.format("Insert into `student issued book` values (%d, '%s', '%s', '%s', '%s')",
                 studentIssueBook.getId(), studentIssueBook.getIsbn(),

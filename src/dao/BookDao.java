@@ -48,6 +48,38 @@ public class BookDao {
         return book; 
     }
     
+    public int getNumberOfBook() {
+        int count = 0;
+        String countQuery = "SELECT COUNT(*) FROM book";
+
+        try (Connection con = DBconnection.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(countQuery)) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return count;
+    }
+    public void updateQuantity(String isbn) {
+        String query = String.format("UPDATE book SET quantity = quantity - 1 WHERE isbn = '%s'", isbn);
+
+        try (Connection con = DBconnection.getConnection();
+             Statement stmt = con.createStatement()) {
+
+            stmt.executeUpdate(query);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     // Thêm sách vào csdl.
     public boolean addBook(Books book) {
         String query = "INSERT INTO book (isbn, name, author, quantity) VALUES (?, ?, ?, ?)";

@@ -3,12 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
-import dao.DbConnectivity;
+import dao.BookDao;
+
+import dao.DefaulterDao;
+import dao.IssueBookDao;
+import dao.StudentDao;
 import java.text.SimpleDateFormat;
 import model.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.*;
+
 
 /**
  *
@@ -19,7 +23,10 @@ public class issueBook extends javax.swing.JFrame {
     /**
      * Creates new form issueBook
      */
-    private final DbConnectivity db = new DbConnectivity();
+    private final BookDao bd = new BookDao();
+    private final StudentDao sd = new StudentDao();
+    private final DefaulterDao dd = new DefaulterDao();
+    private final IssueBookDao ibd = new IssueBookDao();
     public issueBook() {
         initComponents();
         
@@ -27,7 +34,7 @@ public class issueBook extends javax.swing.JFrame {
     }
     private void getStudentDetails() {
         int id = Integer.parseInt(idIssue.getText());
-        Students student = db.getAStudent(id);
+        Students student = sd.getAStudent(id);
         if (student != null) {
             idStudent.setText(String.valueOf(id));
             nameStudent.setText(student.getName());
@@ -44,7 +51,7 @@ public class issueBook extends javax.swing.JFrame {
     }
     private void getBookDetails() {
         String isbn = ISBNIssue.getText();
-        Books book = db.getABook(isbn);
+        Books book = bd.getABook(isbn);
         if (book != null) {
             ISBNBook.setText(isbn);
             nameBook.setText(book.getName());
@@ -364,13 +371,13 @@ public class issueBook extends javax.swing.JFrame {
         String isbn = ISBNIssue.getText();
         int id = Integer.parseInt(idIssue.getText());
         if (Integer.parseInt(quantityBook.getText()) > 0) {
-            if (!db.isAlreadyIssue(isbn, id)) {
-                db.updateQuantity(isbn);
+            if (!ibd.isAlreadyIssue(isbn, id)) {
+                bd.updateQuantity(isbn);
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String issuedate = df.format(jBorrowingDateChooser.getDate());
                 String duedate = df.format(jReturningDateChooser.getDate());
-                IssueBook sib = new IssueBook(id, isbn, issuedate, duedate);
-                db.addNewStudentIssueBook(sib);
+                //IssueBook sib = new IssueBook(id, isbn, issuedate, duedate);
+                ibd.addNewStudentIssueBook(sib);
                 JOptionPane.showMessageDialog(this, "Successful");
             }
             else 

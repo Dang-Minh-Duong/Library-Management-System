@@ -90,6 +90,42 @@ public class StudentDao {
             return false; // Nếu xảy ra lỗi, trả về false
         }
     }
+    public int getNumberOfStudent() {
+        int count = 0;
+        String countQuery = "SELECT COUNT(*) FROM student";
 
+        try (Connection con = DBconnection.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(countQuery)) {
 
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return count;
+    }
+   
+
+    public Students getAStudent(int id) {
+        Students student = null;
+        String query = String.format("SELECT * FROM student WHERE id = %d", id);
+
+        try (Connection con = DBconnection.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                student = new Students(id, rs.getString("name"), rs.getString("university"));
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return student;
+    }
 }

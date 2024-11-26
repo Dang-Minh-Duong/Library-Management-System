@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
-import dao.DbConnectivity;
-import java.util.ArrayList;
+import dao.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import model.*;
@@ -17,7 +19,10 @@ public final class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    private final DbConnectivity db = new DbConnectivity();
+    private final BookDao bd = new BookDao();
+    private final StudentDao sd = new StudentDao();
+    private final IssueBookDao ibd = new IssueBookDao();
+    private final DefaulterDao dd = new DefaulterDao();
     private DefaultTableModel d;
     
     public Home() {
@@ -28,31 +33,34 @@ public final class Home extends javax.swing.JFrame {
         numberOfList();
         loadBook();
         loadStudent();
-        
-        
-        
-        
-        
     }
+
+    
+
+        
+        
+        
+        
+    
     public void numberOfBook() {
-        String count = String.valueOf(db.getNumber("book"));
+        String count = String.valueOf(bd.getNumberOfBook());
         numOfBook.setText(count);
     }
     public void numberOfStudent() {
-        String count = String.valueOf(db.getNumber("student"));
+        String count = String.valueOf(sd.getNumberOfStudent());
         numOfStudent.setText(count);
     }
     public void numberOfIssue() {
-        String count = String.valueOf(db.getNumber("`student issued book`"));
+        String count = String.valueOf(ibd.getNumberOfIssueBook());
         numOfIssue.setText(count);
     }
     public void numberOfList() {
-        String count = String.valueOf(db.getDefaulter());
+        String count = String.valueOf(dd.getNumberOfDefaulter());
         numOfList.setText(count);
     }
     public void loadBook() {
         
-        ArrayList<Books> list = db.getAllBook();
+        List <Books> list = bd.getAllBooks();
         d = (DefaultTableModel) bookTable.getModel();
         d.setRowCount(0);
         
@@ -68,7 +76,7 @@ public final class Home extends javax.swing.JFrame {
     }
     public void loadStudent() {
         
-        ArrayList<Students> list = db.getAllStudent();
+        List <Students> list = sd.getAllStudents();
         d = (DefaultTableModel) studentTable.getModel();
         d.setRowCount(0);
         
@@ -419,7 +427,7 @@ public final class Home extends javax.swing.JFrame {
         studentTable.setRowHeight(40);
         jScrollPane2.setViewportView(studentTable);
 
-        jPanel20.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 178, 677, 215));
+        jPanel20.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 677, 215));
 
         jLabel33.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(102, 102, 102));
@@ -444,12 +452,12 @@ public final class Home extends javax.swing.JFrame {
         bookTable.setRowHeight(40);
         jScrollPane3.setViewportView(bookTable);
 
-        jPanel20.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 427, 677, 213));
+        jPanel20.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 640, 210));
 
         jLabel34.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(102, 102, 102));
         jLabel34.setText("Book Details");
-        jPanel20.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 399, -1, -1));
+        jPanel20.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -519,7 +527,7 @@ public final class Home extends javax.swing.JFrame {
 
         getContentPane().add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 1330, 960));
 
-        setSize(new java.awt.Dimension(1323, 852));
+        setSize(new java.awt.Dimension(1301, 702));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

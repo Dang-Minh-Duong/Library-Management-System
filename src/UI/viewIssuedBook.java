@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
-
+import dao.IssueBookDao;
+import java.util.List;
+import java.util.Vector;
+import model.IssueBook;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Lenovo
@@ -13,10 +17,31 @@ public class viewIssuedBook extends javax.swing.JFrame {
     /**
      * Creates new form viewIssuedBook
      */
+     
     public viewIssuedBook() {
         initComponents();
+        loadIssueBook();
     }
+    private void loadIssueBook () {
+        IssueBookDao ibd = new IssueBookDao();
+        DefaultTableModel d;
+        List<IssueBook> list = ibd.getAllIssueBooks();
+        d = (DefaultTableModel) table.getModel();
+        d.setRowCount(0);
+        for (IssueBook ib : list) {
+            Vector v = new Vector();
+            v.add(ib.getIsbn());
+            v.add(ib.getBookName());
+            v.add(ib.getId());
+            v.add(ib.getStudentName());
+            v.add(ib.getIssueDate());
+            v.add(ib.getDueDate());
+            v.add(ib.getStatus());
+            d.addRow(v);  
+        }
 
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,10 +52,9 @@ public class viewIssuedBook extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        txt_searchinput = new app.bolivia.swing.JCTextField();
+        back = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable2 = new rojeru_san.complementos.RSTableMetro();
+        table = new rojeru_san.complementos.RSTableMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -41,27 +65,15 @@ public class viewIssuedBook extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Edit_Property_50px.png"))); // NOI18N
         jLabel11.setText("Issued Book");
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/back.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        back.setBackground(new java.awt.Color(0, 153, 255));
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/back.png"))); // NOI18N
+        back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backActionPerformed(evt);
             }
         });
 
-        txt_searchinput.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-        txt_searchinput.setForeground(new java.awt.Color(51, 51, 51));
-        txt_searchinput.setCaretColor(new java.awt.Color(204, 204, 204));
-        txt_searchinput.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        txt_searchinput.setPhColor(new java.awt.Color(51, 51, 51));
-        txt_searchinput.setPlaceholder("Search student ID");
-        txt_searchinput.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_searchinputFocusLost(evt);
-            }
-        });
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -72,14 +84,14 @@ public class viewIssuedBook extends javax.swing.JFrame {
                 "ISBN", "Book Name", "Student ID", "Student Name", "Issue Date", "Due Date", "Status"
             }
         ));
-        jTable2.setColorBackgoundHead(new java.awt.Color(0, 102, 102));
-        jTable2.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
-        jTable2.setColorSelBackgound(new java.awt.Color(255, 51, 51));
-        jTable2.setFuenteFilas(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable2.setFuenteFilasSelect(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable2.setFuenteHead(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTable2.setRowHeight(30);
-        jScrollPane1.setViewportView(jTable2);
+        table.setColorBackgoundHead(new java.awt.Color(0, 102, 102));
+        table.setColorFilasBackgound2(new java.awt.Color(255, 255, 255));
+        table.setColorSelBackgound(new java.awt.Color(255, 51, 51));
+        table.setFuenteFilas(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        table.setFuenteFilasSelect(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        table.setFuenteHead(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        table.setRowHeight(30);
+        jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,43 +103,34 @@ public class viewIssuedBook extends javax.swing.JFrame {
                 .addGap(384, 384, 384))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 486, Short.MAX_VALUE)
-                    .addComponent(txt_searchinput, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 486, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(108, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 190, Short.MAX_VALUE)
-                    .addComponent(txt_searchinput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 191, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txt_searchinputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_searchinputFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_searchinputFocusLost
+        Home home = new Home();
+        home.setVisible(true);
+        home.pack();
+        home.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,10 +168,9 @@ public class viewIssuedBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton back;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JScrollPane jScrollPane1;
-    private rojeru_san.complementos.RSTableMetro jTable2;
-    private app.bolivia.swing.JCTextField txt_searchinput;
+    private rojeru_san.complementos.RSTableMetro table;
     // End of variables declaration//GEN-END:variables
 }

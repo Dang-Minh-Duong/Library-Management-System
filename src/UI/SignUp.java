@@ -1,6 +1,6 @@
 
 package UI;
-import dao.DbConnectivity;
+import dao.AdminDao;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -220,7 +220,7 @@ public class SignUp extends javax.swing.JFrame {
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
         // TODO add your handling code here:
-        DbConnectivity db = new DbConnectivity();
+        AdminDao ad = new AdminDao();
         String fullNameText = fullNameField.getText();
         String emailText = emailField.getText();
         String passwordText = passwordField.getText();
@@ -235,7 +235,7 @@ public class SignUp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "Password is require", "Error",
                         JOptionPane.ERROR_MESSAGE);
         } else {
-            if (db.insertInfoLogin(fullNameText, emailText, passwordText)) {
+            if (ad.insertInfoLogin(fullNameText, emailText, passwordText)) {
                 fullNameField.setText("");
                 emailField.setText("");
                 passwordField.setText("");
