@@ -7,6 +7,7 @@ import dao.IssueBookDao;
 import java.util.List;
 import java.util.Vector;
 import model.IssueBook;
+import model.ExtendedIssueBook;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -23,22 +24,19 @@ public class viewIssuedBook extends javax.swing.JFrame {
         loadIssueBook();
     }
     private void loadIssueBook () {
-        IssueBookDao ibd = new IssueBookDao();
-        DefaultTableModel d;
-        List<IssueBook> list = ibd.getAllIssueBooks();
-        d = (DefaultTableModel) table.getModel();
-        d.setRowCount(0);
-        for (IssueBook ib : list) {
-            Vector v = new Vector();
-            v.add(ib.getIsbn());
-            v.add(ib.getBookName());
-            v.add(ib.getId());
-            v.add(ib.getStudentName());
-            v.add(ib.getIssueDate());
-            v.add(ib.getDueDate());
-            v.add(ib.getStatus());
-            d.addRow(v);  
-        }
+        IssueBookDao dao = new IssueBookDao(); 
+        List<ExtendedIssueBook> issuedBooks = dao.getIssuedBooks(); 
+        DefaultTableModel model = (DefaultTableModel) table.getModel(); 
+        model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
+        for (ExtendedIssueBook book : issuedBooks) { 
+            model.addRow(new Object[]{ 
+                book.getIsbn(), 
+                book.getBookName(), 
+                book.getStudentId(), 
+                book.getStudentName(), 
+                book.getIssueDate(), 
+                book.getDueDate(), 
+                book.getStatus() }); }
 
         
     }

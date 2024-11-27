@@ -376,7 +376,7 @@ public class issueBook extends javax.swing.JFrame {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String issuedate = df.format(jBorrowingDateChooser.getDate());
                 String duedate = df.format(jReturningDateChooser.getDate());
-                //IssueBook sib = new IssueBook(id, isbn, issuedate, duedate);
+                IssueBook sib = new IssueBook(id,isbn , issuedate, duedate, "Borrowing");
                 ibd.addNewStudentIssueBook(sib);
                 JOptionPane.showMessageDialog(this, "Successful");
             }

@@ -107,8 +107,6 @@ public final class Home extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         logoutLabel = new javax.swing.JPanel();
         logout = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -127,6 +125,7 @@ public final class Home extends javax.swing.JFrame {
         viewIssuedBooks = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         defaultList = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -156,7 +155,6 @@ public final class Home extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -190,10 +188,7 @@ public final class Home extends javax.swing.JFrame {
         jLabel4.setText("Welcome, Admin");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 50));
-
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -202,19 +197,6 @@ public final class Home extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(242, 242, 242));
         jLabel5.setText("Features");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
-
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 340, 60));
-
-        jPanel5.setBackground(new java.awt.Color(255, 0, 0));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Home_26px_2.png"))); // NOI18N
-        jLabel6.setText("   Home Page");
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 150, -1));
-
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 60));
 
         logoutLabel.setBackground(new java.awt.Color(0, 102, 102));
         logoutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -230,8 +212,6 @@ public final class Home extends javax.swing.JFrame {
         logout.setText("Logout");
         logoutLabel.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
-        jPanel3.add(logoutLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 340, 60));
-
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -240,8 +220,6 @@ public final class Home extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Library_26px_1.png"))); // NOI18N
         jLabel8.setText("LMS Dashboard");
         jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
-
-        jPanel3.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 340, 60));
 
         jPanel8.setBackground(new java.awt.Color(51, 51, 51));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -252,8 +230,6 @@ public final class Home extends javax.swing.JFrame {
         manageBook.setText("Manage Books");
         jPanel8.add(manageBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
-        jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 340, 60));
-
         jPanel9.setBackground(new java.awt.Color(51, 51, 51));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -262,8 +238,6 @@ public final class Home extends javax.swing.JFrame {
         manageStudents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Read_Online_26px.png"))); // NOI18N
         manageStudents.setText("Manage Students");
         jPanel9.add(manageStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
-
-        jPanel3.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 340, 60));
 
         issueBooklabel.setBackground(new java.awt.Color(51, 51, 51));
         issueBooklabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -284,8 +258,6 @@ public final class Home extends javax.swing.JFrame {
         });
         issueBooklabel.add(issueBooklLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
-        jPanel3.add(issueBooklabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 340, 60));
-
         jPanel11.setBackground(new java.awt.Color(51, 51, 51));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -294,8 +266,6 @@ public final class Home extends javax.swing.JFrame {
         returnBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Return_Purchase_26px.png"))); // NOI18N
         returnBook.setText("Return Book");
         jPanel11.add(returnBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
-
-        jPanel3.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 340, 60));
 
         jPanel12.setBackground(new java.awt.Color(51, 51, 51));
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -306,8 +276,6 @@ public final class Home extends javax.swing.JFrame {
         viewRecords.setText("View Records");
         jPanel12.add(viewRecords, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
-        jPanel3.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 340, 60));
-
         jPanel13.setBackground(new java.awt.Color(51, 51, 51));
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -316,8 +284,6 @@ public final class Home extends javax.swing.JFrame {
         viewIssuedBooks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Books_26px.png"))); // NOI18N
         viewIssuedBooks.setText("View Issued Books");
         jPanel13.add(viewIssuedBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
-
-        jPanel3.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 340, 60));
 
         jPanel14.setBackground(new java.awt.Color(51, 51, 51));
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -328,9 +294,52 @@ public final class Home extends javax.swing.JFrame {
         defaultList.setText("Default List");
         jPanel14.add(defaultList, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 180, -1));
 
-        jPanel3.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 540, 340, 60));
+        jButton1.setText("jButton1");
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 340, 730));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(issueBooklabel, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(issueBooklabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(logoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         jPanel18.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
         jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -358,8 +367,6 @@ public final class Home extends javax.swing.JFrame {
         jLabel23.setForeground(new java.awt.Color(102, 102, 102));
         jLabel23.setText("Default List");
 
-        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jPanel22.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 102, 102)));
         jPanel22.setPreferredSize(new java.awt.Dimension(160, 90));
         jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -370,12 +377,9 @@ public final class Home extends javax.swing.JFrame {
         numOfStudent.setText("10");
         jPanel22.add(numOfStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 130, 60));
 
-        jPanel20.add(jPanel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(216, 46, 180, 120));
-
         jLabel28.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(102, 102, 102));
         jLabel28.setText("Number Of Students");
-        jPanel20.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 6, -1, -1));
 
         jPanel23.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -386,12 +390,9 @@ public final class Home extends javax.swing.JFrame {
         numOfIssue.setText("10");
         jPanel23.add(numOfIssue, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 130, 60));
 
-        jPanel20.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 46, 180, 120));
-
         jLabel30.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(102, 102, 102));
         jLabel30.setText("Issued Books");
-        jPanel20.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 6, -1, -1));
 
         jPanel24.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 102, 102)));
         jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -402,12 +403,9 @@ public final class Home extends javax.swing.JFrame {
         numOfList.setText("10");
         jPanel24.add(numOfList, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 60));
 
-        jPanel20.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 46, 180, 120));
-
         jLabel32.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(102, 102, 102));
         jLabel32.setText("Default List");
-        jPanel20.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 6, -1, -1));
 
         studentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -427,12 +425,9 @@ public final class Home extends javax.swing.JFrame {
         studentTable.setRowHeight(40);
         jScrollPane2.setViewportView(studentTable);
 
-        jPanel20.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 677, 215));
-
         jLabel33.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(102, 102, 102));
         jLabel33.setText("Number Of Books");
-        jPanel20.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 6, -1, -1));
 
         bookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -452,12 +447,9 @@ public final class Home extends javax.swing.JFrame {
         bookTable.setRowHeight(40);
         jScrollPane3.setViewportView(bookTable);
 
-        jPanel20.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 640, 210));
-
         jLabel34.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(102, 102, 102));
         jLabel34.setText("Book Details");
-        jPanel20.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
         javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
         jPanel25.setLayout(jPanel25Layout);
@@ -470,8 +462,6 @@ public final class Home extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        jPanel20.add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 206, -1, -1));
-
         jPanel26.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 51, 51)));
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -479,14 +469,75 @@ public final class Home extends javax.swing.JFrame {
         numOfBook.setForeground(new java.awt.Color(102, 102, 102));
         numOfBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Sell_50px.png"))); // NOI18N
         numOfBook.setText("10");
-        jPanel26.add(numOfBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 130, 60));
+        jPanel26.add(numOfBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 60));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI Emoji", 1, 20)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(102, 102, 102));
         jLabel26.setText("Student Details");
         jPanel26.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 28));
 
-        jPanel20.add(jPanel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 46, 180, 120));
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel33)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel28)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel30)
+                .addGap(75, 75, 75)
+                .addComponent(jLabel32))
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34)))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel32))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel34))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -520,14 +571,31 @@ public final class Home extends javax.swing.JFrame {
                             .addComponent(jLabel23))
                         .addGap(1227, 1227, 1227))))
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 1330, 960));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 1330, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
-        setSize(new java.awt.Dimension(1301, 702));
+        setSize(new java.awt.Dimension(1107, 633));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -596,6 +664,7 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel defaultList;
     private javax.swing.JLabel issueBooklLabel;
     private javax.swing.JPanel issueBooklabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -610,7 +679,6 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
@@ -629,7 +697,6 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;

@@ -5,11 +5,15 @@
         <group>
             <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/model/IssueBook.java</file>
             <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/UI/viewIssuedBook.java</file>
+            <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/model/ExtendedIssueBook.java</file>
             <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/dao/StudentDao.java</file>
             <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/UI/Home.java</file>
             <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/UI/issueBook.java</file>
             <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/dao/IssueBookDao.java</file>
+            <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/dao/DbConnectivity.java</file>
+            <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/dao/DefaulterDao.java</file>
             <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/dao/BookDao.java</file>
+            <file>file:/D:/Subject/OOP/Code/LibraryManagementSystem(thêm%20HomePage)/src/UI/DefaultersList.java</file>
         </group>
     </open-files>
 </project-private>
