@@ -5,7 +5,6 @@
 package UI;
 import dao.BookDao;
 
-import dao.DefaulterDao;
 import dao.IssueBookDao;
 import dao.StudentDao;
 import java.text.SimpleDateFormat;
@@ -25,7 +24,6 @@ public class issueBook extends javax.swing.JFrame {
      */
     private final BookDao bd = new BookDao();
     private final StudentDao sd = new StudentDao();
-    private final DefaulterDao dd = new DefaulterDao();
     private final IssueBookDao ibd = new IssueBookDao();
     public issueBook() {
         initComponents();
@@ -275,20 +273,10 @@ public class issueBook extends javax.swing.JFrame {
                 ISBNIssueFocusLost(evt);
             }
         });
-        ISBNIssue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ISBNIssueActionPerformed(evt);
-            }
-        });
 
         idIssue.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 idIssueFocusLost(evt);
-            }
-        });
-        idIssue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idIssueActionPerformed(evt);
             }
         });
 
@@ -362,10 +350,6 @@ public class issueBook extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void idIssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idIssueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idIssueActionPerformed
-
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
         // TODO add your handling code here:
         String isbn = ISBNIssue.getText();
@@ -389,10 +373,6 @@ public class issueBook extends javax.swing.JFrame {
             clearInfor();
         }
     }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
-
-    private void ISBNIssueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ISBNIssueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ISBNIssueActionPerformed
 
     private void ISBNIssueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ISBNIssueFocusLost
         // TODO add your handling code here:
