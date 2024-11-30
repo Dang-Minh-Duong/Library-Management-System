@@ -11,6 +11,9 @@ package model;
 public class Books {
     private String ISBN, name, author;
     private int quantity;
+    public Books() {
+        
+    }
     public Books (String ISBN, String name, String author,int quantity) {
         this.ISBN = ISBN;
         this.name = name;
@@ -46,7 +49,7 @@ public class Books {
         return quantity;
     }
 
-    public void setQuality(int quantity) {
+    public void setQuatity(int quantity) {
         this.quantity = quantity;
     }
 }

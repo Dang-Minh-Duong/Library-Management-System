@@ -356,7 +356,7 @@ public class issueBook extends javax.swing.JFrame {
         int id = Integer.parseInt(idIssue.getText());
         if (Integer.parseInt(quantityBook.getText()) > 0) {
             if (!ibd.isAlreadyIssue(isbn, id)) {
-                bd.updateQuantity(isbn);
+                bd.updateQuantity(isbn, -1);
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String issuedate = df.format(jBorrowingDateChooser.getDate());
                 String duedate = df.format(jReturningDateChooser.getDate());

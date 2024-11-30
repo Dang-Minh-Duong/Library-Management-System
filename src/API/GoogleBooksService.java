@@ -39,7 +39,7 @@ public class GoogleBooksService {
             book.setISBN(isbn);
             book.setName(item.getVolumeInfo().getTitle());
             book.setAuthor(item.getVolumeInfo().getAuthors() != null ? String.join(", ", item.getVolumeInfo().getAuthors()) : "Unknown");
-            book.setQuantity(0);
+            book.setQuatity(0);
             
             return book;
         }

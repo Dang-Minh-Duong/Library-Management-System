@@ -1,6 +1,5 @@
 package dao;
 
-import model.IssueBook;
 import model.*;
 
 import java.sql.*;
@@ -104,7 +103,6 @@ public class IssueBookDao {
         }
         return issuedBooks;
     }
-    // Phương thức để lấy danh sách tất cả các bản ghi
     
     public int getNumberOfDefaulter() {
         long currentTime = System.currentTimeMillis();
@@ -189,8 +187,111 @@ public class IssueBookDao {
         }
         return issuedBooks;
     }
+    // Phương thức trả về tất cả các bản ghi
+    public List<ExtendedIssueBook> getAllRecords() {
+        List<ExtendedIssueBook> issuedBooks = new ArrayList<>();
+        try (Connection con = DBconnection.getConnection()) {
+            String query = "SELECT sib.`ISBN`, b.name AS book_name, s.ID, s.Name AS student_name, sib.`Issue date`, sib.`Due date`, sib.`status` " +
+                           "FROM `student issued book` sib " +
+                           "INNER JOIN book b on sib.`ISBN` = b.isbn " +
+                           "INNER JOIN student s on sib.`Student ID` = s.ID ";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
 
+            while (rs.next()) {
+                ExtendedIssueBook issueBook = new ExtendedIssueBook(
+                    rs.getString("ISBN"),
+                    rs.getString("book_name"),
+                    rs.getString("ID"),
+                    rs.getString("student_name"),
+                    rs.getString("Issue date"),
+                    rs.getString("Due date"),
+                    rs.getString("status")
+                );
+                issuedBooks.add(issueBook);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return issuedBooks;
+    }
+    // Tìm kiếm theo khoảng thời gian
+    public List<ExtendedIssueBook> searchIssuedBooks(String fromDate, String toDate) {
+    List<ExtendedIssueBook> issuedBooks = new ArrayList<>();
+    try (Connection con = DBconnection.getConnection()) {
+        String sql = "SELECT sib.`ISBN`, b.name AS book_name, s.ID, s.Name AS student_name, sib.`Issue date`, sib.`Due date`, sib.`status` " +
+                     "FROM `student issued book` sib " +
+                     "INNER JOIN book b on sib.`ISBN` = b.isbn " +
+                     "INNER JOIN student s on sib.`Student ID` = s.ID " +
+                     "WHERE sib.`Issue date` BETWEEN ? AND ?";
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, fromDate);
+        pst.setString(2, toDate);
+        ResultSet rs = pst.executeQuery();
 
+        while (rs.next()) {
+            ExtendedIssueBook issueBook = new ExtendedIssueBook(
+                rs.getString("ISBN"),
+                rs.getString("book_name"),
+                rs.getString("ID"),
+                rs.getString("student_name"),
+                rs.getString("Issue date"),
+                rs.getString("Due date"),
+                rs.getString("status")
+            );
+            issuedBooks.add(issueBook);
+        }
+    } catch (SQLException | ClassNotFoundException ex) {
+        ex.printStackTrace();
+    }
+    return issuedBooks;
+    }
 
+    // Phương thức để lấy chi tiết sách được mượn và trả về IssueBook
+    public IssueBook getAIssueBookDetail(String isbn, int studentId) {
+        IssueBook issueBook = null;
+        try (Connection con = DBconnection.getConnection()) {
+            String query = "SELECT * FROM `student issued book` WHERE `ISBN` = ? AND `Student ID` = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, isbn);
+            pst.setInt(2, studentId);
+            ResultSet rs = pst.executeQuery();
 
+            if (rs.next()) {
+                issueBook = new IssueBook(
+                    studentId,
+                    isbn,
+                    rs.getString("Issue date"),
+                    rs.getString("Due date"),
+                    rs.getString("status")
+                );
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return issueBook;
+    }
+    // IssueBookDao.java
+
+    // Cập nhật trạng thái sách
+    public void updateBookStatus(String isbn, int studentId) {
+        try (Connection con = DBconnection.getConnection()) {
+            String query = "UPDATE `student issued book` SET `STATUS` = ? WHERE `ISBN` = ? AND `Student ID` = ? AND `STATUS` = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, "Returned");
+            pst.setString(2, isbn);
+            pst.setInt(3, studentId);
+            pst.setString(4, "Borrowing");
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
+
+
+
+
+
+
+

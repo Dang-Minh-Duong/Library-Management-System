@@ -66,8 +66,8 @@ public class BookDao {
 
         return count;
     }
-    public void updateQuantity(String isbn) {
-        String query = String.format("UPDATE book SET quantity = quantity - 1 WHERE isbn = '%s'", isbn);
+    public void updateQuantity(String isbn, int ud) {
+        String query = String.format("UPDATE book SET quantity = quantity + %d WHERE isbn = '%s'",ud, isbn);
 
         try (Connection con = DBconnection.getConnection();
              Statement stmt = con.createStatement()) {
