@@ -204,13 +204,13 @@ public class DefaultersList extends javax.swing.JFrame {
         jPanel1.add(clear_button, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 90, 110, 40));
 
         back.setBackground(new java.awt.Color(0, 153, 255));
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/back.png"))); // NOI18N
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Rewind_48px.png"))); // NOI18N
         back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backActionPerformed(evt);
             }
         });
-        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
+        jPanel1.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/library-3.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 350, 330, 250));

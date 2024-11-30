@@ -149,24 +149,27 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel5" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
                                   <Component id="jLabel4" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="46" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="ISBNBook" pref="139" max="32767" attributes="0"/>
                                   <Component id="nameBook" max="32767" attributes="0"/>
                                   <Component id="authorBook" alignment="1" max="32767" attributes="0"/>
                                   <Component id="quantityBook" alignment="1" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel1" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -209,7 +212,7 @@
                   <Font name="Arial" size="18" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Icon/book (2).png"/>
+                  <Image iconType="3" name="/Icon/newIcon/book (3).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="BOOK DETAILS"/>
               </Properties>
@@ -261,7 +264,12 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel7" min="-2" pref="54" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Component id="idStudent" min="-2" pref="160" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -271,11 +279,6 @@
                                               <Component id="universityStudent" max="32767" attributes="0"/>
                                               <Component id="nameStudent" max="32767" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel7" min="-2" pref="54" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                          <Component id="idStudent" min="-2" pref="160" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -337,7 +340,7 @@
                       <Font name="Arial" size="18" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Icon/student.png"/>
+                      <Image iconType="3" name="/Icon/newIcon/student.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="STUDENT DETAILS"/>
                   </Properties>
@@ -352,7 +355,7 @@
               <Font name="Arial" size="18" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icon/book (3).png"/>
+              <Image iconType="3" name="/Icon/newIcon/book (3).png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ISSUE INFORMATION"/>
           </Properties>

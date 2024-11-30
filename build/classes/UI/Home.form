@@ -58,13 +58,13 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="368" max="32767" attributes="0"/>
+                  <EmptySpace pref="362" max="32767" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
@@ -72,16 +72,19 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -90,7 +93,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/adminIcons/adminIcons/icons8_menu_48px_1.png"/>
+              <Image iconType="3" name="/Icon/adminIcons/icons8_menu_48px_1.png"/>
             </Property>
           </Properties>
         </Component>
@@ -109,7 +112,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="60" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -134,7 +137,7 @@
               <Color blue="f2" green="f2" red="f2" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/adminIcons/adminIcons/male_user_50px.png"/>
+              <Image iconType="3" name="/Icon/adminIcons/male_user_50px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Welcome, Admin"/>
           </Properties>
@@ -275,7 +278,7 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Home_26px_2.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Home_26px_2.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="   Home Page"/>
               </Properties>
@@ -319,7 +322,7 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Exit_26px_1.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Exit_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Logout"/>
               </Properties>
@@ -365,7 +368,7 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Library_26px_1.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Library_26px_1.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="LMS Dashboard"/>
               </Properties>
@@ -378,11 +381,6 @@
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel_manageBooksMouseClicked"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel_manageBooksMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel_manageBooksMouseExited"/>
-          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -414,14 +412,12 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Book_26px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Book_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manage Books"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_manageBooksMouseClicked"/>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_manageBooksMouseEntered"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_manageBooksMouseExited"/>
               </Events>
             </Component>
           </SubComponents>
@@ -463,14 +459,12 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Read_Online_26px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Read_Online_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manage Students"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_manageStudentsMouseClicked"/>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_manageStudentsMouseEntered"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_manageStudentsMouseExited"/>
               </Events>
             </Component>
           </SubComponents>
@@ -487,7 +481,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="47" max="32767" attributes="0"/>
-                      <Component id="jLabel11" min="-2" pref="180" max="-2" attributes="0"/>
+                      <Component id="issueBookLabel" min="-2" pref="180" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -496,14 +490,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="14" max="32767" attributes="0"/>
-                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                      <Component id="issueBookLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel11">
+            <Component class="javax.swing.JLabel" name="issueBookLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="18" style="1"/>
@@ -512,10 +506,13 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Sell_26px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Sell_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Issue Book"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="issueBookLabelMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -531,7 +528,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="45" max="32767" attributes="0"/>
-                      <Component id="jLabel12" min="-2" pref="180" max="-2" attributes="0"/>
+                      <Component id="returnBookLabel" min="-2" pref="180" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -540,14 +537,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="14" max="32767" attributes="0"/>
-                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      <Component id="returnBookLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel12">
+            <Component class="javax.swing.JLabel" name="returnBookLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="18" style="1"/>
@@ -556,10 +553,13 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Return_Purchase_26px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Return_Purchase_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Return Book"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="returnBookLabelMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -599,7 +599,7 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_View_Details_26px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_View_Details_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="View Records"/>
               </Properties>
@@ -645,7 +645,7 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Books_26px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Books_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="View Issued Books"/>
               </Properties>
@@ -692,7 +692,7 @@
                   <Color blue="f2" green="f2" red="f2" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Conference_26px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Conference_26px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Default List"/>
               </Properties>
@@ -793,7 +793,7 @@
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_Sell_50px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_Sell_50px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="10"/>
               </Properties>
@@ -850,7 +850,7 @@
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/adminIcons/adminIcons/icons8_List_of_Thumbnails_50px.png"/>
+                  <Image iconType="3" name="/Icon/adminIcons/icons8_List_of_Thumbnails_50px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="10"/>
               </Properties>
@@ -1014,7 +1014,7 @@
                       <Color blue="66" green="66" red="66" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/adminIcons/adminIcons/icons8_People_50px.png"/>
+                      <Image iconType="3" name="/Icon/adminIcons/icons8_People_50px.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="10"/>
                   </Properties>
@@ -1071,7 +1071,7 @@
                       <Color blue="66" green="66" red="66" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/adminIcons/adminIcons/icons8_Sell_50px.png"/>
+                      <Image iconType="3" name="/Icon/adminIcons/icons8_Sell_50px.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="10"/>
                   </Properties>
@@ -1128,7 +1128,7 @@
                       <Color blue="66" green="66" red="66" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/adminIcons/adminIcons/icons8_List_of_Thumbnails_50px.png"/>
+                      <Image iconType="3" name="/Icon/adminIcons/icons8_List_of_Thumbnails_50px.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="10"/>
                   </Properties>
@@ -1386,7 +1386,7 @@
                       <Color blue="66" green="66" red="66" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/adminIcons/adminIcons/icons8_Sell_50px.png"/>
+                      <Image iconType="3" name="/Icon/adminIcons/icons8_Sell_50px.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="10"/>
                   </Properties>

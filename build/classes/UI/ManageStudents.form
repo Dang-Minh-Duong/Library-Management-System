@@ -178,7 +178,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Rewind_48px.png"/>
+                  <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Rewind_48px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Back"/>
               </Properties>
@@ -199,7 +199,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Contact_26px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Contact_26px.png"/>
             </Property>
           </Properties>
         </Component>
@@ -221,7 +221,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Moleskine_26px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Moleskine_26px.png"/>
             </Property>
           </Properties>
         </Component>
@@ -251,7 +251,7 @@
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Collaborator_Male_26px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Collaborator_Male_26px.png"/>
             </Property>
           </Properties>
         </Component>
@@ -424,7 +424,7 @@
               <Color blue="33" green="33" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Student_Male_100px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Student_Male_100px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Manage Students"/>
           </Properties>

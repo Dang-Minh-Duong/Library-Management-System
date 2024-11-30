@@ -356,7 +356,7 @@
               <Color blue="ff" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Icon/newIcon/back.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Rewind_48px.png"/>
             </Property>
           </Properties>
           <Events>
@@ -364,7 +364,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="0" width="40" height="30"/>
+              <AbsoluteConstraints x="0" y="0" width="60" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

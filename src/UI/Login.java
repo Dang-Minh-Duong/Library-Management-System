@@ -19,10 +19,8 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         Left = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -47,50 +45,33 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Library management System");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/book.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/book.png"))); // NOI18N
 
         javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
         Right.setLayout(RightLayout);
         RightLayout.setHorizontalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel5))
-                    .addGroup(RightLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel6)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addContainerGap(7, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(100, 100, 100))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         RightLayout.setVerticalGroup(
             RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(99, 99, 99)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addGap(78, 78, 78))
+                .addGap(42, 42, 42)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         jPanel1.add(Right);
-        Right.setBounds(0, 0, 400, 500);
+        Right.setBounds(-10, 0, 400, 500);
 
         Left.setBackground(new java.awt.Color(255, 255, 255));
         Left.setMinimumSize(new java.awt.Dimension(400, 500));
@@ -202,8 +183,6 @@ public class Login extends javax.swing.JFrame {
         
         SignUp SignUpFrame = new SignUp();
         SignUpFrame.setVisible(true);
-        SignUpFrame.pack();
-        SignUpFrame.setLocationRelativeTo(null); 
         this.dispose();
     }//GEN-LAST:event_signUpButtonActionPerformed
 
@@ -222,8 +201,6 @@ public class Login extends javax.swing.JFrame {
             if (ad.checkInfoLogin(emailText, passwordText)) {
                 Home HomeFrame = new Home();
                 HomeFrame.setVisible(true);
-                HomeFrame.pack();
-                HomeFrame.setLocationRelativeTo(null); 
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(new JFrame(), "Incorrect email or password", "Error",
@@ -274,13 +251,11 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel Right;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordField;

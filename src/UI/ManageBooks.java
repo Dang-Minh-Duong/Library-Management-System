@@ -250,6 +250,7 @@ public class ManageBooks extends javax.swing.JFrame {
         bookDelete = new rojerusan.RSMaterialButtonCircle();
         updateBook = new rojerusan.RSMaterialButtonCircle();
         searchBook = new rojerusan.RSMaterialButtonCircle();
+        jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tb_booksDetail = new rojeru_san.complementos.RSTableMetro();
@@ -265,7 +266,7 @@ public class ManageBooks extends javax.swing.JFrame {
 
         jLabel_back.setFont(new java.awt.Font("Verdana", 0, 17)); // NOI18N
         jLabel_back.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Rewind_48px.png"))); // NOI18N
+        jLabel_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Rewind_48px.png"))); // NOI18N
         jLabel_back.setText("Back");
         jLabel_back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -286,19 +287,19 @@ public class ManageBooks extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel_back, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Enter Book ISBN");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Contact_26px.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Contact_26px.png"))); // NOI18N
 
         txt_ISBN.setBackground(new java.awt.Color(102, 102, 255));
         txt_ISBN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txt_ISBN.setPlaceholder("Enter book ISBN ...");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Moleskine_26px.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Moleskine_26px.png"))); // NOI18N
 
         txt_bookName.setBackground(new java.awt.Color(102, 102, 255));
         txt_bookName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -307,7 +308,7 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Enter Book Name");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Collaborator_Male_26px.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Collaborator_Male_26px.png"))); // NOI18N
 
         txt_authorName.setBackground(new java.awt.Color(102, 102, 255));
         txt_authorName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -316,7 +317,7 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Author Name");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Unit_26px.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Unit_26px.png"))); // NOI18N
 
         txt_quantity.setBackground(new java.awt.Color(102, 102, 255));
         txt_quantity.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -400,6 +401,11 @@ public class ManageBooks extends javax.swing.JFrame {
                             .addComponent(txt_authorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(updateBook, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(223, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(275, 275, 275)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(276, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,7 +442,12 @@ public class ManageBooks extends javax.swing.JFrame {
                     .addComponent(updateBook, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(searchBook, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 242, Short.MAX_VALUE))
+                .addGap(0, 250, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(402, 402, 402)
+                    .addComponent(jLabel10)
+                    .addContainerGap(402, Short.MAX_VALUE)))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -463,7 +474,7 @@ public class ManageBooks extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Books_52px_1.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Books_52px_1.png"))); // NOI18N
         jLabel9.setText("Manage Books");
 
         jPanel4.setBackground(new java.awt.Color(255, 51, 51));
@@ -650,6 +661,7 @@ public class ManageBooks extends javax.swing.JFrame {
     private rojerusan.RSMaterialButtonCircle addBook;
     private rojerusan.RSMaterialButtonCircle bookDelete;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

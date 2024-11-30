@@ -117,9 +117,9 @@ public final class Home extends javax.swing.JFrame {
         jPanel_manageStudents = new javax.swing.JPanel();
         jLabel_manageStudents = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        issueBookLabel = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
+        returnBookLabel = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         viewRecords = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
@@ -158,7 +158,7 @@ public final class Home extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_menu_48px_1.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_menu_48px_1.png"))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -170,7 +170,7 @@ public final class Home extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 60, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 1, 25)); // NOI18N
@@ -179,7 +179,7 @@ public final class Home extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 25)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/male_user_50px.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/male_user_50px.png"))); // NOI18N
         jLabel4.setText("Welcome, Admin");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -187,26 +187,28 @@ public final class Home extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(12, 12, 12)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel3)
-                .addComponent(jLabel4))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addGap(14, 14, 14))
         );
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
@@ -237,7 +239,7 @@ public final class Home extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Home_26px_2.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Home_26px_2.png"))); // NOI18N
         jLabel6.setText("   Home Page");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -261,7 +263,7 @@ public final class Home extends javax.swing.JFrame {
 
         logoutLabel.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         logoutLabel.setForeground(new java.awt.Color(242, 242, 242));
-        logoutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Exit_26px_1.png"))); // NOI18N
+        logoutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Exit_26px.png"))); // NOI18N
         logoutLabel.setText("Logout");
         logoutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,7 +292,7 @@ public final class Home extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Library_26px_1.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Library_26px_1.png"))); // NOI18N
         jLabel8.setText("LMS Dashboard");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -310,31 +312,14 @@ public final class Home extends javax.swing.JFrame {
         );
 
         jPanel_manageBooks.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel_manageBooks.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel_manageBooksMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel_manageBooksMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPanel_manageBooksMouseExited(evt);
-            }
-        });
 
         jLabel_manageBooks.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         jLabel_manageBooks.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel_manageBooks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Book_26px.png"))); // NOI18N
+        jLabel_manageBooks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Book_26px.png"))); // NOI18N
         jLabel_manageBooks.setText("Manage Books");
         jLabel_manageBooks.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_manageBooksMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel_manageBooksMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel_manageBooksMouseExited(evt);
             }
         });
 
@@ -359,17 +344,11 @@ public final class Home extends javax.swing.JFrame {
 
         jLabel_manageStudents.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         jLabel_manageStudents.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel_manageStudents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Read_Online_26px.png"))); // NOI18N
+        jLabel_manageStudents.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Read_Online_26px.png"))); // NOI18N
         jLabel_manageStudents.setText("Manage Students");
         jLabel_manageStudents.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_manageStudentsMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel_manageStudentsMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel_manageStudentsMouseExited(evt);
             }
         });
 
@@ -392,10 +371,15 @@ public final class Home extends javax.swing.JFrame {
 
         jPanel10.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Sell_26px.png"))); // NOI18N
-        jLabel11.setText("Issue Book");
+        issueBookLabel.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
+        issueBookLabel.setForeground(new java.awt.Color(242, 242, 242));
+        issueBookLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Sell_26px.png"))); // NOI18N
+        issueBookLabel.setText("Issue Book");
+        issueBookLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                issueBookLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -403,23 +387,28 @@ public final class Home extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(47, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(issueBookLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(jLabel11)
+                .addComponent(issueBookLabel)
                 .addContainerGap())
         );
 
         jPanel11.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel12.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Return_Purchase_26px.png"))); // NOI18N
-        jLabel12.setText("Return Book");
+        returnBookLabel.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
+        returnBookLabel.setForeground(new java.awt.Color(242, 242, 242));
+        returnBookLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Return_Purchase_26px.png"))); // NOI18N
+        returnBookLabel.setText("Return Book");
+        returnBookLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                returnBookLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -427,14 +416,14 @@ public final class Home extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(returnBookLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(jLabel12)
+                .addComponent(returnBookLabel)
                 .addContainerGap())
         );
 
@@ -442,7 +431,7 @@ public final class Home extends javax.swing.JFrame {
 
         viewRecords.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         viewRecords.setForeground(new java.awt.Color(242, 242, 242));
-        viewRecords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_View_Details_26px.png"))); // NOI18N
+        viewRecords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_View_Details_26px.png"))); // NOI18N
         viewRecords.setText("View Records");
         viewRecords.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -470,7 +459,7 @@ public final class Home extends javax.swing.JFrame {
 
         viewIssuedBook.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         viewIssuedBook.setForeground(new java.awt.Color(242, 242, 242));
-        viewIssuedBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Books_26px.png"))); // NOI18N
+        viewIssuedBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Books_26px.png"))); // NOI18N
         viewIssuedBook.setText("View Issued Books");
         viewIssuedBook.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -498,7 +487,7 @@ public final class Home extends javax.swing.JFrame {
 
         dafaultList.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         dafaultList.setForeground(new java.awt.Color(242, 242, 242));
-        dafaultList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Conference_26px.png"))); // NOI18N
+        dafaultList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Conference_26px.png"))); // NOI18N
         dafaultList.setText("Default List");
         dafaultList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -573,7 +562,7 @@ public final class Home extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Sell_50px.png"))); // NOI18N
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Sell_50px.png"))); // NOI18N
         jLabel20.setText("10");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -599,7 +588,7 @@ public final class Home extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_List_of_Thumbnails_50px.png"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_List_of_Thumbnails_50px.png"))); // NOI18N
         jLabel22.setText("10");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
@@ -626,7 +615,7 @@ public final class Home extends javax.swing.JFrame {
 
         numOfStudent.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
         numOfStudent.setForeground(new java.awt.Color(102, 102, 102));
-        numOfStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_People_50px.png"))); // NOI18N
+        numOfStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_People_50px.png"))); // NOI18N
         numOfStudent.setText("10");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
@@ -652,7 +641,7 @@ public final class Home extends javax.swing.JFrame {
 
         numOfIssue.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
         numOfIssue.setForeground(new java.awt.Color(102, 102, 102));
-        numOfIssue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Sell_50px.png"))); // NOI18N
+        numOfIssue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Sell_50px.png"))); // NOI18N
         numOfIssue.setText("10");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
@@ -678,7 +667,7 @@ public final class Home extends javax.swing.JFrame {
 
         numOfList.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
         numOfList.setForeground(new java.awt.Color(102, 102, 102));
-        numOfList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_List_of_Thumbnails_50px.png"))); // NOI18N
+        numOfList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_List_of_Thumbnails_50px.png"))); // NOI18N
         numOfList.setText("10");
 
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
@@ -763,7 +752,7 @@ public final class Home extends javax.swing.JFrame {
 
         numOfBook.setFont(new java.awt.Font("Segoe UI Historic", 0, 50)); // NOI18N
         numOfBook.setForeground(new java.awt.Color(102, 102, 102));
-        numOfBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adminIcons/adminIcons/icons8_Sell_50px.png"))); // NOI18N
+        numOfBook.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/adminIcons/icons8_Sell_50px.png"))); // NOI18N
         numOfBook.setText("10");
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
@@ -935,7 +924,9 @@ public final class Home extends javax.swing.JFrame {
 
     private void viewRecordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewRecordsMouseClicked
         // TODO add your handling code here:
-        
+        ViewAllRecord var = new ViewAllRecord();
+        var.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_viewRecordsMouseClicked
 
     private void viewIssuedBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewIssuedBookMouseClicked
@@ -944,6 +935,34 @@ public final class Home extends javax.swing.JFrame {
         vib.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_viewIssuedBookMouseClicked
+
+    private void jLabel_manageBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_manageBooksMouseClicked
+        // TODO add your handling code here:
+        ManageBooks mb = new ManageBooks();
+        mb.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel_manageBooksMouseClicked
+
+    private void jLabel_manageStudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_manageStudentsMouseClicked
+        // TODO add your handling code here:
+        ManageStudents ms = new ManageStudents();
+        ms.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel_manageStudentsMouseClicked
+
+    private void returnBookLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnBookLabelMouseClicked
+        // TODO add your handling code here:
+        ReturnBook rb = new ReturnBook();
+        rb.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_returnBookLabelMouseClicked
+
+    private void issueBookLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_issueBookLabelMouseClicked
+        // TODO add your handling code here:
+        viewIssuedBook vib=new viewIssuedBook();
+        vib.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_issueBookLabelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -985,9 +1004,8 @@ public final class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.complementos.RSTableMetro bookTable;
     private javax.swing.JLabel dafaultList;
+    private javax.swing.JLabel issueBookLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1035,6 +1053,7 @@ public final class Home extends javax.swing.JFrame {
     private javax.swing.JLabel numOfIssue;
     private javax.swing.JLabel numOfList;
     private javax.swing.JLabel numOfStudent;
+    private javax.swing.JLabel returnBookLabel;
     private rojeru_san.complementos.RSTableMetro studentTable;
     private javax.swing.JLabel viewIssuedBook;
     private javax.swing.JLabel viewRecords;

@@ -29,7 +29,7 @@ public class ManageStudents extends javax.swing.JFrame {
     }
 
     // Đưa thông tin sinh viên vào bảng
-    public void setStudentDetailsToTable() {
+    private void setStudentDetailsToTable() {
         // Tạo đối tượng DAO để lấy danh sách sinh viên
         StudentDao studentDao = new StudentDao();
         List<Students> students = studentDao.getAllStudents(); // Lấy danh sách sinh viên từ cơ sở dữ liệu
@@ -222,7 +222,7 @@ public class ManageStudents extends javax.swing.JFrame {
 
         jLabel_back.setFont(new java.awt.Font("Verdana", 0, 17)); // NOI18N
         jLabel_back.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Rewind_48px.png"))); // NOI18N
+        jLabel_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Rewind_48px.png"))); // NOI18N
         jLabel_back.setText("Back");
         jLabel_back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -249,13 +249,13 @@ public class ManageStudents extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Enter student Id");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Contact_26px.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Contact_26px.png"))); // NOI18N
 
         txt_studentId.setBackground(new java.awt.Color(102, 102, 255));
         txt_studentId.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txt_studentId.setPlaceholder("Enter student Id ...");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Moleskine_26px.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Moleskine_26px.png"))); // NOI18N
 
         txt_studentName.setBackground(new java.awt.Color(102, 102, 255));
         txt_studentName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -264,7 +264,7 @@ public class ManageStudents extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Enter name");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Collaborator_Male_26px.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Collaborator_Male_26px.png"))); // NOI18N
 
         txt_university.setBackground(new java.awt.Color(102, 102, 255));
         txt_university.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
@@ -388,7 +388,7 @@ public class ManageStudents extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddNewBookIcons/AddNewBookIcons/icons8_Student_Male_100px.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Student_Male_100px.png"))); // NOI18N
         jLabel9.setText("Manage Students");
 
         jPanel4.setBackground(new java.awt.Color(255, 51, 51));
@@ -418,7 +418,7 @@ public class ManageStudents extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(226, 226, 226)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(249, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -427,7 +427,7 @@ public class ManageStudents extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(174, 174, 174)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(213, 213, 213))

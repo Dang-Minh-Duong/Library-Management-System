@@ -112,6 +112,13 @@
                   </Group>
                   <EmptySpace pref="223" max="32767" attributes="0"/>
               </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="275" max="-2" attributes="0"/>
+                      <Component id="jLabel10" min="-2" pref="37" max="-2" attributes="0"/>
+                      <EmptySpace pref="276" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -154,7 +161,14 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="searchBook" min="-2" pref="63" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="242" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="250" max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="402" max="-2" attributes="0"/>
+                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="402" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -181,7 +195,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel_back" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -196,7 +210,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Rewind_48px.png"/>
+                  <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Rewind_48px.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Back"/>
               </Properties>
@@ -217,7 +231,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Contact_26px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Contact_26px.png"/>
             </Property>
           </Properties>
         </Component>
@@ -239,7 +253,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Moleskine_26px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Moleskine_26px.png"/>
             </Property>
           </Properties>
         </Component>
@@ -269,7 +283,7 @@
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Collaborator_Male_26px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Collaborator_Male_26px.png"/>
             </Property>
           </Properties>
         </Component>
@@ -299,7 +313,7 @@
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Unit_26px.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Unit_26px.png"/>
             </Property>
           </Properties>
         </Component>
@@ -369,6 +383,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchBookActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel10">
         </Component>
       </SubComponents>
     </Container>
@@ -491,7 +507,7 @@
               <Color blue="33" green="33" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/AddNewBookIcons/AddNewBookIcons/icons8_Books_52px_1.png"/>
+              <Image iconType="3" name="/Icon/AddNewBookIcons/icons8_Books_52px_1.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Manage Books"/>
           </Properties>
