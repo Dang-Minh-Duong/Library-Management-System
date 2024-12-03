@@ -4,13 +4,11 @@
  */
 package model;
 
-/**
- *
- * @author Lenovo
- */
 public class Books {
     private String ISBN, name, author;
     private int quantity;
+    private String imageUrl; 
+    private String description;
     public Books() {
         
     }
@@ -52,4 +50,18 @@ public class Books {
     public void setQuatity(int quantity) {
         this.quantity = quantity;
     }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public String getDescription() {
+        return description;
+    }
+
 }

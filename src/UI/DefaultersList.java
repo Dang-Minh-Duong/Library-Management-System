@@ -174,6 +174,11 @@ public class DefaultersList extends javax.swing.JFrame {
         txt_searchinput.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_searchinput.setPhColor(new java.awt.Color(51, 51, 51));
         txt_searchinput.setPlaceholder("Search student ID");
+        txt_searchinput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_searchinputActionPerformed(evt);
+            }
+        });
         jPanel1.add(txt_searchinput, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 140, -1));
 
         search_button.setBackground(new java.awt.Color(255, 51, 51));
@@ -246,6 +251,10 @@ public class DefaultersList extends javax.swing.JFrame {
         home.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
+
+    private void txt_searchinputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_searchinputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_searchinputActionPerformed
 
     /**
      * @param args the command line arguments

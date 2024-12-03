@@ -276,12 +276,13 @@ public class IssueBookDao {
     // Cập nhật trạng thái sách
     public void updateBookStatus(String isbn, int studentId) {
         try (Connection con = DBconnection.getConnection()) {
-            String query = "UPDATE `student issued book` SET `STATUS` = ? WHERE `ISBN` = ? AND `Student ID` = ? AND `STATUS` = ?";
+            String query = "UPDATE `student issued book` SET `Status` = ? WHERE `ISBN` = ? AND `Student ID` = ? AND `Status` = ?";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, "Returned");
             pst.setString(2, isbn);
             pst.setInt(3, studentId);
             pst.setString(4, "Borrowing");
+            pst.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
+
 import dao.IssueBookDao;
 import dao.BookDao;
 import model.IssueBook;
@@ -25,15 +26,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.text.html.HTML.Tag.SELECT;
 
-
 public class ReturnBook extends javax.swing.JFrame {
+
     private IssueBookDao ibd;
     private String isbn;
     private String id;
+
     public ReturnBook() {
         initComponents();
         ibd = new IssueBookDao();
-        
+
     }
 
     // Phương thức lấy thông tin sách đã mượn
@@ -42,25 +44,24 @@ public class ReturnBook extends javax.swing.JFrame {
         id = idBorrowing.getText();
         if (isbn.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "ISBN is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
         if (id.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "ID student is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-        }
-        else {
-        
-        IssueBook ib= ibd.getAIssueBookDetail(isbn, Integer.parseInt(id));
-        if (ib == null) {
-            JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            clearInfo();
+                    JOptionPane.ERROR_MESSAGE);
         } else {
-        ibd_ISBN.setText(isbn);
-        ibd_IssueDate.setText(ib.getIssueDate());
-        ibd_StudentID.setText(String.valueOf(ib.getId()));
-        ibd_DueDate.setText(ib.getDueDate());
-        }
+
+            IssueBook ib = ibd.getAIssueBookDetail(isbn, Integer.parseInt(id));
+            if (ib == null) {
+                JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                clearInfo();
+            } else {
+                ibd_ISBN.setText(isbn);
+                ibd_IssueDate.setText(ib.getIssueDate());
+                ibd_StudentID.setText(String.valueOf(ib.getId()));
+                ibd_DueDate.setText(ib.getDueDate());
+            }
         }
     }
 
@@ -74,6 +75,7 @@ public class ReturnBook extends javax.swing.JFrame {
         BookDao bd = new BookDao();
         bd.updateQuantity(isbn, 1);
     }
+
     private void clearInfo() {
         isbnBorrowing.setText("");
         idBorrowing.setText("");
@@ -82,37 +84,32 @@ public class ReturnBook extends javax.swing.JFrame {
         ibd_StudentID.setText("");
         ibd_DueDate.setText("");
     }
-    private void returnBook  () {
+
+    private void returnBook() {
         isbn = isbnBorrowing.getText();
         id = idBorrowing.getText();
         if (isbn.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "ISBN is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
         if (id.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "ID student is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-        }
-        else { 
-            IssueBook ib= ibd.getAIssueBookDetail(isbn, Integer.parseInt(id));
-        if (ib == null) {
-            JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            clearInfo();
+                    JOptionPane.ERROR_MESSAGE);
         } else {
-            updateBookCount();
-            updateStatus();
-            JOptionPane.showMessageDialog(this, "Update Successfull");
-            clearInfo();
+            IssueBook ib = ibd.getAIssueBookDetail(isbn, Integer.parseInt(id));
+            if (ib == null) {
+                JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                clearInfo();
+            } else {
+                updateBookCount();
+                updateStatus();
+                JOptionPane.showMessageDialog(this, "Update Successfull");
+                clearInfo();
+            }
         }
     }
-    }
-    
 
-  
-
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -387,7 +384,7 @@ public class ReturnBook extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void returnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookActionPerformed
-       returnBook();
+        returnBook();
     }//GEN-LAST:event_returnBookActionPerformed
 
     private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
