@@ -45,12 +45,19 @@ public class GoogleBooksService {
             book.setName(item.getVolumeInfo().getTitle());
             book.setAuthor(item.getVolumeInfo().getAuthors() != null ? String.join(", ", item.getVolumeInfo().getAuthors()) : "Unknown");
             book.setQuatity(0);
+            book.setDescription(item.getVolumeInfo().getDescription() != null ? item.getVolumeInfo().getDescription() : "No description available");
+            if (item.getVolumeInfo().getImageLinks() != null) {
+                book.setImageUrl(item.getVolumeInfo().getImageLinks().getThumbnail());
+            } else {
+                book.setImageUrl(null);
+            }
+                return book;
+            }
 
-            return book;
+            return null; // Không tìm thấy thông tin sách
         }
 
-        return null; // Không tìm thấy thông tin sách
-    }
+    
 
     public List<Books> getBookList(String keyword) throws Exception {
         String apiKey = "AIzaSyCVwgDkWJRhmnT7_M1cLNvaod46w2x7wPY";
