@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
+
 import dao.IssueBookDao;
 import java.util.List;
-import java.util.Vector;
-import model.IssueBook;
-import model.ExtendedIssueBook;
+import model.ModelFactory;
 import javax.swing.table.DefaultTableModel;
+import model.IssueBook;
+
 /**
  *
  * @author Lenovo
@@ -18,28 +19,30 @@ public class viewIssuedBook extends javax.swing.JFrame {
     /**
      * Creates new form viewIssuedBook
      */
-     
     public viewIssuedBook() {
         initComponents();
         loadIssueBook();
     }
-    private void loadIssueBook () {
-        IssueBookDao dao = new IssueBookDao(); 
-        List<ExtendedIssueBook> issuedBooks = dao.getIssuedBooks(); 
-        DefaultTableModel model = (DefaultTableModel) table.getModel(); 
-        model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
-        for (ExtendedIssueBook book : issuedBooks) { 
-            model.addRow(new Object[]{ 
-                book.getIsbn(), 
-                book.getBookName(), 
-                book.getStudentId(), 
-                book.getStudentName(), 
-                book.getIssueDate(), 
-                book.getDueDate(), 
-                book.getStatus() }); }
 
-        
+    private void loadIssueBook() {
+        IssueBookDao dao = ModelFactory.createIssueBookDao();
+        List<IssueBook> issuedBooks = dao.getAllIssueBooksBorrowing();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
+        for (IssueBook book : issuedBooks) {
+            model.addRow(new Object[]{
+                book.getBook().getISBN(),
+                book.getBook().getName(),
+                book.getStudent().getId(),
+                book.getStudent().getName(),
+                book.getIssueDate(),
+                book.getDueDate(),
+                book.getStatus()});
+        }
+        table.setDefaultEditor(Object.class, null); // Không cho phép edit bảng       
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +128,6 @@ public class viewIssuedBook extends javax.swing.JFrame {
         // TODO add your handling code here:
         Home home = new Home();
         home.setVisible(true);
-        home.pack();
         home.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed

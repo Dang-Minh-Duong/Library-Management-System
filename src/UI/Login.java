@@ -1,18 +1,17 @@
-
 package UI;
+
 import dao.AdminDao;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import model.ModelFactory;
 
 public class Login extends javax.swing.JFrame {
 
-  
     public Login() {
         initComponents();
+
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -180,27 +179,29 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
-        
+
         SignUp SignUpFrame = new SignUp();
         SignUpFrame.setVisible(true);
+        SignUpFrame.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        AdminDao ad = new AdminDao();
-        String emailText = emailField.getText();
-        String passwordText = passwordField.getText();
+        AdminDao adminDao = ModelFactory.createAdminDao();
+        String emailText = emailField.getText().trim();
+        String passwordText = passwordField.getText().trim();
         if (emailText.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "Email address is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         } else if (passwordText.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "Password is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         } else {
-            if (ad.checkInfoLogin(emailText, passwordText)) {
+            if (adminDao.checkInfoLogin(emailText, passwordText)) {
                 Home HomeFrame = new Home();
                 HomeFrame.setVisible(true);
+                //    HomeFrame.setLocationRelativeTo(null);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(new JFrame(), "Incorrect email or password", "Error",
@@ -240,11 +241,13 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                Login login = new Login();
+                login.setVisible(true);
+                login.setLocationRelativeTo(null);
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Left;

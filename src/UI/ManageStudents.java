@@ -6,10 +6,10 @@ package UI;
 
 import dao.StudentDao;
 import javax.swing.table.DefaultTableModel;
-import java.sql.*;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import model.ModelFactory;
 import model.Students;
 
 /**
@@ -22,16 +22,23 @@ public class ManageStudents extends javax.swing.JFrame {
      * Creates new form ManageBooks
      */
     private DefaultTableModel model;
+    private String idText, name, university;
+    private int id;
+    private final StudentDao studentDao = ModelFactory.createStudentDao();
 
     public ManageStudents() {
         initComponents();
         setStudentDetailsToTable();
     }
 
+    private void clear() {
+        txt_studentId.setText("");
+        txt_studentName.setText("");
+        txt_university.setText("");
+    }
+
     // Đưa thông tin sinh viên vào bảng
     private void setStudentDetailsToTable() {
-        // Tạo đối tượng DAO để lấy danh sách sinh viên
-        StudentDao studentDao = new StudentDao();
         List<Students> students = studentDao.getAllStudents(); // Lấy danh sách sinh viên từ cơ sở dữ liệu
 
         // Lấy mô hình dữ liệu của bảng
@@ -43,143 +50,154 @@ public class ManageStudents extends javax.swing.JFrame {
             Object[] row = {student.getId(), student.getName(), student.getUniversity()};
             model.addRow(row);
         }
+        tb_studentsDetail.setDefaultEditor(Object.class, null); // Không cho phép edit bảng
+
+    }
+
+    private void getInput() {
+        idText = txt_studentId.getText().trim();
+        name = txt_studentName.getText().trim();
+        university = txt_university.getText().trim();
+
+    }
+
+    // Lấy dữ liệu và kiểm tra
+    private boolean checkValidID() {
+
+        // Kiểm tra dữ liệu nhập vào ID (phải là số nguyên dương)
+        try {
+            id = Integer.parseInt(idText); // Chuyển đổi ID từ String sang int
+            if (id <= 0) {
+                JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+
+    }
+
+    private boolean checkNullInfo() {
+        if (idText.isEmpty() || name.isEmpty() || university.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter all information", "Massage", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkValidNameNUniversity() {
+        // Kiểm tra dữ liệu nhập vào tên sinh viên
+        if (name.matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(this, "Student name cannot contain numbers", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        // Kiểm tra dữ liệu nhập vào tên Trường
+        if (university.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Invalid university", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     // Add student.
     private void addStudent() {
-        // Lấy dữ liệu từ các text field
-        String idText = txt_studentId.getText();
-        String name = txt_studentName.getText();
-        String university = txt_university.getText();
+        getInput();
+        if (checkNullInfo() && checkValidID() && checkValidNameNUniversity()) {
+            Students student = new Students(id, name, university);
+            boolean success = studentDao.addStudent(student);
 
-        // Kiểm tra xem các trường dữ liệu có trống hay không
-        if (idText.isEmpty() || name.isEmpty() || university.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Add student successful", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-        // Kiểm tra dữ liệu nhập vào ID (phải là số nguyên dương)
-        int id;
-        try {
-            id = Integer.parseInt(idText); // Chuyển đổi ID từ String sang int
-            if (id <= 0) {
-                JOptionPane.showMessageDialog(this, "ID phải là số nguyên dương!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
+                // Làm mới bảng hiển thị thông tin sinh viên
+                setStudentDetailsToTable();
+
+                // Xóa nội dung các text field sau khi thêm
+                clear();
+            } else {
+                JOptionPane.showMessageDialog(this, "ID exist", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Tạo đối tượng Student
-        Students student = new Students(id, name, university);
-
-        // Gọi phương thức addStudent từ lớp DAO
-        StudentDao studentDao = new StudentDao();
-        boolean success = studentDao.addStudent(student);
-
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Thêm sinh viên thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-
-            // Làm mới bảng hiển thị thông tin sinh viên
-            setStudentDetailsToTable();
-
-            // Xóa nội dung các text field sau khi thêm
-            txt_studentId.setText("");
-            txt_studentName.setText("");
-            txt_university.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "Thêm sinh viên thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     // Update student.
     private void updateStudent() {
+        getInput();
+        if (checkNullInfo() && checkValidID() && checkValidNameNUniversity()) {
+            Students student = new Students(id, name, university);
+            boolean success = studentDao.updateStudent(student);
 
-        // Lấy dữ liệu từ các textField
-        String idText = txt_studentId.getText();
-        String name = txt_studentName.getText();
-        String university = txt_university.getText();
+            // Thông báo kết quả
+            if (success) {
+                JOptionPane.showMessageDialog(this, "Update student successful", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-        // Kiểm tra nếu các trường nhập liệu còn trống
-        if (idText.isEmpty() || name.isEmpty() || university.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!");
+                // Làm mới bảng hiển thị sinh viên
+                setStudentDetailsToTable();
 
-            return;
-        }
+                // Xóa nội dung các textField sau khi cập nhật
+                clear();
+                // Cho phép chỉnh sửa lại trường ID khi hoàn thành cập nhật
+                txt_studentId.setEditable(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "ID exist", "Error", JOptionPane.ERROR_MESSAGE);
 
-        // Kiểm tra dữ liệu ID
-        int id;
-        try {
-            id = Integer.parseInt(idText);
-            if (id <= 0) {
-                JOptionPane.showMessageDialog(this, "ID phải là số nguyên dương!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return;
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID phải là số nguyên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Tạo đối tượng Student từ dữ liệu nhập
-        Students student = new Students(id, name, university);
-
-        // Gọi phương thức updateStudent từ StudentDao
-        StudentDao studentDao = new StudentDao();
-        boolean success = studentDao.updateStudent(student);
-
-        // Thông báo kết quả
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Cập nhật sinh viên thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-
-            // Làm mới bảng hiển thị sinh viên
-            setStudentDetailsToTable();
-
-            // Xóa nội dung các textField sau khi cập nhật
-            txt_studentId.setText("");
-            txt_studentName.setText("");
-            txt_university.setText("");
-
-            // Cho phép chỉnh sửa lại trường ID khi hoàn thành cập nhật
-            txt_studentId.setEditable(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Cập nhật sinh viên thất bại. Vui lòng kiểm tra lại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-
         }
     }
 
     // Delete student.
     private void deleteStudent() {
-        int selectedRow = tb_studentsDetail.getSelectedRow(); // Lấy dòng được chọn trong bảng
-
-        if (selectedRow == -1) { // Nếu không có dòng nào được chọn
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một sinh viên để xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            return; // Dừng lại nếu không có dòng được chọn
+        getInput();
+        if (idText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter all information", "Massage", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
+        if (checkValidID()) {
 
-        // Lấy ID từ dòng được chọn (cột đầu tiên là ID)
-        int id = (int) model.getValueAt(selectedRow, 0);
+            // Xác nhận người dùng muốn xóa
+            int confirm = JOptionPane.showConfirmDialog(this, "Do you want to delete this student?", "Confirm", JOptionPane.YES_NO_OPTION);
 
-        // Xác nhận người dùng muốn xóa
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa sinh viên này?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            StudentDao studentDao = new StudentDao(); // Khởi tạo đối tượng StudentDao
-            boolean success = studentDao.deleteStudent(id); // Gọi phương thức deleteStudent() trong StudentDao
+                boolean success = studentDao.deleteStudent(id); // Gọi phương thức deleteStudent() trong StudentDao
 
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Xóa sinh viên thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Delete student successful", "Message", JOptionPane.INFORMATION_MESSAGE);
 
-                // Làm mới bảng sau khi xóa sinh viên
-                setStudentDetailsToTable();
+                    // Làm mới bảng sau khi xóa sinh viên
+                    setStudentDetailsToTable();
 
-                // Xóa nội dung các textField sau khi xóa sinh viên
-                txt_studentId.setText("");
-                txt_studentName.setText("");
-                txt_university.setText("");
-            } else {
-                JOptionPane.showMessageDialog(this, "Xóa sinh viên thất bại. Vui lòng thử lại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    // Xóa nội dung các textField sau khi xóa sinh viên
+                    txt_studentId.setText("");
+                    txt_studentName.setText("");
+                    txt_university.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Fail to delete this student because it has in issued book list", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
+        }
+    }
+
+    // Tìm kiếm sinh viên.
+    private void searchStudent() {
+        getInput();
+        if (idText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter all information", "Massage", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if (checkValidID()) {
+            // Kiểm tra sinh viên có tồn tại trong cơ sở dữ liệu không
+            Students student = studentDao.getAStudent(id);
+            if (student == null) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy sinh viên với ID " + id, "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Hiển thị thông tin sinh viên vào các textField
+            txt_studentName.setText(student.getName());
+            txt_university.setText(student.getUniversity());
         }
     }
 
@@ -207,6 +225,7 @@ public class ManageStudents extends javax.swing.JFrame {
         addStudent = new rojerusan.RSMaterialButtonCircle();
         deleteStudent = new rojerusan.RSMaterialButtonCircle();
         updateStudent = new rojerusan.RSMaterialButtonCircle();
+        searchStudent = new rojerusan.RSMaterialButtonCircle();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tb_studentsDetail = new rojeru_san.complementos.RSTableMetro();
@@ -297,6 +316,14 @@ public class ManageStudents extends javax.swing.JFrame {
             }
         });
 
+        searchStudent.setBackground(new java.awt.Color(255, 51, 51));
+        searchStudent.setText("Search");
+        searchStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchStudentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -305,34 +332,39 @@ public class ManageStudents extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_studentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_university, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(txt_studentName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_studentId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(93, 93, 93)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_studentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_university, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deleteStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(223, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(addStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(deleteStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,27 +373,30 @@ public class ManageStudents extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_studentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(29, 29, 29)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_studentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(35, 35, 35)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_university, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(117, 117, 117)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 323, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 315, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -401,7 +436,7 @@ public class ManageStudents extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
+            .addGap(0, 9, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -411,26 +446,26 @@ public class ManageStudents extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
                         .addComponent(jLabel9))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
+                        .addGap(141, 141, 141)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(174, 174, 174)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(213, 213, 213))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -438,9 +473,9 @@ public class ManageStudents extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,7 +488,7 @@ public class ManageStudents extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(1738, 831));
+        setSize(new java.awt.Dimension(1203, 556));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -479,9 +514,7 @@ public class ManageStudents extends javax.swing.JFrame {
             selectedRow = -1; // Reset trạng thái hàng được chọn
 
             // Xóa thông tin trong các textField
-            txt_studentId.setText("");
-            txt_studentName.setText("");
-            txt_university.setText("");
+            clear();
             // mở trường studentId để không cho phép chỉnh sửa
             txt_studentId.setEditable(true);
         } else {
@@ -493,8 +526,6 @@ public class ManageStudents extends javax.swing.JFrame {
             txt_studentName.setText(model.getValueAt(rowNo, 1).toString());
             txt_university.setText(model.getValueAt(rowNo, 2).toString());
 
-            // Khóa trường studentId để không cho phép chỉnh sửa
-            txt_studentId.setEditable(false);
         }
 
     }//GEN-LAST:event_tb_studentsDetailMouseClicked
@@ -506,6 +537,10 @@ public class ManageStudents extends javax.swing.JFrame {
     private void deleteStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteStudentActionPerformed
         deleteStudent();
     }//GEN-LAST:event_deleteStudentActionPerformed
+
+    private void searchStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchStudentActionPerformed
+        searchStudent();
+    }//GEN-LAST:event_searchStudentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -561,6 +596,7 @@ public class ManageStudents extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane3;
+    private rojerusan.RSMaterialButtonCircle searchStudent;
     private rojeru_san.complementos.RSTableMetro tb_studentsDetail;
     private app.bolivia.swing.JCTextField txt_studentId;
     private app.bolivia.swing.JCTextField txt_studentName;

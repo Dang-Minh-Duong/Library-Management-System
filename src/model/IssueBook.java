@@ -1,39 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
-
 
 /**
  * @author Lenovo
  */
 public class IssueBook {
-    private int id;
-    private String isbn, issueDate, dueDate, status;
+    private Students student;
+    private Books book;
+    private String issueDate;
+    private String dueDate;
+    private String status;
 
-    public IssueBook(int id, String isbn, String issueDate, String dueDate, String status) {
-        this.id = id;
-        this.isbn = isbn;
-        this.dueDate = dueDate;
+    public IssueBook(Students student, Books book, String issueDate, String dueDate, String status) {
+        this.student = student;
+        this.book = book;
         this.issueDate = issueDate;
+        this.dueDate = dueDate;
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    public Students getStudent() {
+        return student;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStudent(Students student) {
+        this.student = student;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public Books getBook() {
+        return book;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setBook(Books book) {
+        this.book = book;
     }
 
     public String getIssueDate() {
@@ -51,7 +49,6 @@ public class IssueBook {
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
-
 
     public String getStatus() {
         return status;

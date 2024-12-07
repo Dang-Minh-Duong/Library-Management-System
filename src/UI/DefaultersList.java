@@ -3,65 +3,98 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
-import model.ExtendedIssueBook;
+
 import dao.IssueBookDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import model.IssueBook;
+import model.ModelFactory;
 
 /**
  *
  * @author Name
  */
 public class DefaultersList extends javax.swing.JFrame {
-    private DefaultTableModel model;
-    private IssueBookDao ibd = new IssueBookDao();
+
+    private final DefaultTableModel model;
+    private final IssueBookDao issueBookDao = ModelFactory.createIssueBookDao();
+    private int id;
+
     /**
      * Creates new form IssueBookDetails
      */
     // default constructor
     public DefaultersList() {
         initComponents();
-        model = (DefaultTableModel) table.getModel(); 
+        model = (DefaultTableModel) table.getModel();
         loadDefaulterList();
     }
-    private void loadDefaulterList () {
-   
-        List<ExtendedIssueBook> defaulterList = ibd.getDefaulterList(); 
-       
-        model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
-        for (ExtendedIssueBook book : defaulterList) { 
-            model.addRow(new Object[]{ 
-                book.getIsbn(), 
-                book.getBookName(), 
-                book.getStudentId(), 
-                book.getStudentName(), 
-                book.getIssueDate(), 
-                book.getDueDate(), 
-                book.getStatus() }); }
+
+    private boolean checkValidID() {
+        String idText = txt_searchinput.getText().trim();
+        if (idText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter ID", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        // Kiểm tra dữ liệu nhập vào ID (phải là số nguyên dương)
+        try {
+            id = Integer.parseInt(idText); // Chuyển đổi ID từ String sang int
+            if (id <= 0) {
+                JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+
     }
+
+    private void loadDefaulterList() {
+        List<IssueBook> defaulterList = issueBookDao.getDefaulterList();
+
+        model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
+        for (IssueBook book : defaulterList) {
+            model.addRow(new Object[]{
+                book.getBook().getISBN(),
+                book.getBook().getName(),
+                book.getStudent().getId(),
+                book.getStudent().getName(),
+                book.getIssueDate(),
+                book.getDueDate(),
+                book.getStatus()
+            });
+        }
+        table.setDefaultEditor(Object.class, null); // Không cho phép edit bảng
+    }
+
     private void clearTable() {
         model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
     }
+
     private void search() {
-        List<ExtendedIssueBook> eib = ibd.searchDefaulter(Integer.parseInt(txt_searchinput.getText()));
-        if (eib == null) {
-            JOptionPane.showMessageDialog(this, "No Records Found!");
-        } else {
-            model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
-        for (ExtendedIssueBook book : eib) { 
-            model.addRow(new Object[]{ 
-                book.getIsbn(), 
-                book.getBookName(), 
-                book.getStudentId(), 
-                book.getStudentName(), 
-                book.getIssueDate(), 
-                book.getDueDate(), 
-                book.getStatus() }); }
+        if (checkValidID()) {
+            List<IssueBook> issueBooks = issueBookDao.searchDefaulter(id);
+            if (issueBooks.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Records Found!");
+            } else {
+                model.setRowCount(0); // Xóa tất cả các hàng hiện tại 
+                for (IssueBook book : issueBooks) {
+                    model.addRow(new Object[]{
+                        book.getBook().getISBN(),
+                        book.getBook().getName(),
+                        book.getStudent().getId(),
+                        book.getStudent().getName(),
+                        book.getIssueDate(),
+                        book.getDueDate(),
+                        book.getStatus()
+                    });
+                }
+            }
         }
-        }
-    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -174,11 +207,6 @@ public class DefaultersList extends javax.swing.JFrame {
         txt_searchinput.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txt_searchinput.setPhColor(new java.awt.Color(51, 51, 51));
         txt_searchinput.setPlaceholder("Search student ID");
-        txt_searchinput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_searchinputActionPerformed(evt);
-            }
-        });
         jPanel1.add(txt_searchinput, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 140, -1));
 
         search_button.setBackground(new java.awt.Color(255, 51, 51));
@@ -229,7 +257,7 @@ public class DefaultersList extends javax.swing.JFrame {
     private void search_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_buttonActionPerformed
         // TODO add your handling code here:
         search();
-        
+
     }//GEN-LAST:event_search_buttonActionPerformed
 
     private void allrecords_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allrecords_buttonActionPerformed
@@ -247,14 +275,9 @@ public class DefaultersList extends javax.swing.JFrame {
         // TODO add your handling code here:
         Home home = new Home();
         home.setVisible(true);
-        home.pack();
         home.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
-
-    private void txt_searchinputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_searchinputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_searchinputActionPerformed
 
     /**
      * @param args the command line arguments

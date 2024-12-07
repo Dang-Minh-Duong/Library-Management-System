@@ -3,15 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
+
 import dao.BookDao;
 
 import dao.IssueBookDao;
 import dao.StudentDao;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import model.*;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import model.*;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,61 +26,55 @@ public class issueBook extends javax.swing.JFrame {
     /**
      * Creates new form issueBook
      */
-    private final BookDao bd = new BookDao();
-    private final StudentDao sd = new StudentDao();
-    private final IssueBookDao ibd = new IssueBookDao();
+    private final BookDao bd = ModelFactory.createBookDao();
+    private final StudentDao sd = ModelFactory.createStudentDao();
+    private final IssueBookDao ibd = ModelFactory.createIssueBookDao();
+
     public issueBook() {
         initComponents();
-        
-        
+
+        jBorrowingDateChooser.getDateEditor().setEnabled(false);  // Tắt nhập tay
+        jReturningDateChooser.getDateEditor().setEnabled(false);  // Tắt nhập tay
+
     }
-    private void getStudentDetails() {
-        int id = Integer.parseInt(idIssue.getText());
-        Students student = sd.getAStudent(id);
-        if (student != null) {
-            idStudent.setText(String.valueOf(id));
-            nameStudent.setText(student.getName());
-            universityStudent.setText(student.getUniversity());
-            
-        } else {
-            JOptionPane.showMessageDialog(new JFrame(), "Student not found", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            idStudent.setText("");
-            nameStudent.setText("");
-            universityStudent.setText("");
-        }
-        
-    }
-    private void getBookDetails() {
-        String isbn = ISBNIssue.getText();
-        Books book = bd.getABook(isbn);
-        if (book != null) {
-            ISBNBook.setText(isbn);
-            nameBook.setText(book.getName());
-            authorBook.setText(book.getAuthor());
-            quantityBook.setText(String.valueOf(book.getQuantity()));
-            
-        } else {
-            JOptionPane.showMessageDialog(new JFrame(), "Book not found", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            ISBNBook.setText("");
-            nameBook.setText("");
-            authorBook.setText("");
-            quantityBook.setText("");
-        }
-        
-    }
+
     private void clearInfor() {
-        ISBNBook.setText("");
-        nameBook.setText("");
-            authorBook.setText("");
-            quantityBook.setText("");
-            idStudent.setText("");
-            nameStudent.setText("");
-            universityStudent.setText("");
-            ISBNIssue.setText("");
-            idIssue.setText("");
+        ISBNIssue.setText("");
+        idIssue.setText("");
+        jBorrowingDateChooser.setDate(null);
+        jReturningDateChooser.setDate(null);
+
     }
+
+    private boolean isValidISBN13(String isbn) {
+        // Biểu thức chính quy để kiểm tra định dạng ISBN-13 có dấu gạch
+        String regex = "^(978|979)-\\d{1,5}-\\d{1,7}-\\d{1,7}-\\d{1}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(isbn);
+        return matcher.matches();
+    }
+
+    private boolean checkValidIsbn(String isbn) {
+        if (!isValidISBN13(isbn)) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid ISBN-13 format (e.g., 978-3-16-148410-0).");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkValidId(int id) {
+        try {
+            if (id <= 0) {
+                JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return true;
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,27 +84,7 @@ public class issueBook extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-                jPanel3 = new javax.swing.JPanel();
         panelMain = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        ISBNBook = new javax.swing.JTextField();
-        nameBook = new javax.swing.JTextField();
-        authorBook = new javax.swing.JTextField();
-        quantityBook = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        idStudent = new javax.swing.JTextField();
-        nameStudent = new javax.swing.JTextField();
-        universityStudent = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -117,150 +95,11 @@ public class issueBook extends javax.swing.JFrame {
         rSMaterialButtonCircle1 = new rojerusan.RSMaterialButtonCircle();
         jBorrowingDateChooser = new com.toedter.calendar.JDateChooser();
         jReturningDateChooser = new com.toedter.calendar.JDateChooser();
-
-        
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelMain.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/book (3).png"))); // NOI18N
-        jLabel1.setText("BOOK DETAILS");
-
-        jLabel2.setText("Name");
-
-        jLabel3.setText("Author");
-
-        jLabel4.setText("Quantity");
-
-        jLabel5.setText("ISBN");
-
-        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
-
-        jLabel7.setText("ID");
-
-        jLabel8.setText("Name");
-
-        jLabel9.setText("University");
-
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/student.png"))); // NOI18N
-        jLabel11.setText("STUDENT DETAILS");
-
-        jLabel16.setText("jLabel16");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel11))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(idStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addGap(43, 43, 43)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(universityStudent)
-                                    .addComponent(nameStudent)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))))
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel11)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(nameStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(universityStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ISBNBook, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                            .addComponent(nameBook)
-                            .addComponent(authorBook)
-                            .addComponent(quantityBook))))
-                .addGap(43, 43, 43)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ISBNBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(authorBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(quantityBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/book (3).png"))); // NOI18N
@@ -272,18 +111,6 @@ public class issueBook extends javax.swing.JFrame {
 
         jLabel14.setText("Borrowing date");
 
-        ISBNIssue.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ISBNIssueFocusLost(evt);
-            }
-        });
-
-        idIssue.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                idIssueFocusLost(evt);
-            }
-        });
-
         jLabel15.setText("Returning date");
 
         rSMaterialButtonCircle1.setText("ADD");
@@ -293,100 +120,165 @@ public class issueBook extends javax.swing.JFrame {
             }
         });
 
+        back.setBackground(new java.awt.Color(0, 153, 255));
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/AddNewBookIcons/icons8_Rewind_48px.png"))); // NOI18N
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
         panelMain.setLayout(panelMainLayout);
         panelMainLayout.setHorizontalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel13)
-                        .addComponent(rSMaterialButtonCircle1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panelMainLayout.createSequentialGroup()
-                            .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel15))
-                            .addGap(84, 84, 84)
-                            .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jReturningDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jBorrowingDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(idIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(ISBNIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(36, 36, 36))
+                    .addGroup(panelMainLayout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rSMaterialButtonCircle1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelMainLayout.createSequentialGroup()
+                                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel14))
+                                .addGap(37, 37, 37)
+                                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jBorrowingDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                                    .addComponent(ISBNIssue)
+                                    .addComponent(jReturningDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(idIssue)))))
+                    .addGroup(panelMainLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(back)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel6))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelMainLayout.createSequentialGroup()
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMainLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel6)
-                        .addGap(26, 26, 26)
-                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(ISBNIssue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(54, 54, 54)
-                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(idIssue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14))
-                    .addGroup(panelMainLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBorrowingDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6))
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(ISBNIssue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(idIssue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
+                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBorrowingDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(31, 31, 31)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jReturningDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addComponent(rSMaterialButtonCircle1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(59, 59, 59))
         );
 
-        getContentPane().add(panelMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 490));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-        setSize(new java.awt.Dimension(1053, 496));
+        setSize(new java.awt.Dimension(437, 505));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
-        // TODO add your handling code here:
-        String isbn = ISBNIssue.getText();
-        int id = Integer.parseInt(idIssue.getText());
-        if (Integer.parseInt(quantityBook.getText()) > 0) {
-            if (!ibd.isAlreadyIssue(isbn, id)) {
-                bd.updateQuantity(isbn, -1);
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                String issuedate = df.format(jBorrowingDateChooser.getDate());
-                String duedate = df.format(jReturningDateChooser.getDate());
-                IssueBook sib = new IssueBook(id,isbn , issuedate, duedate, "Borrowing");
-                ibd.addNewStudentIssueBook(sib);
-                JOptionPane.showMessageDialog(this, "Successful");
-            }
-            else 
-                JOptionPane.showMessageDialog(this, "This student already has this book");
-            clearInfor();
-            
-        } else {
-            JOptionPane.showMessageDialog(this, "This book is currently unavailable");
-            clearInfor();
+
+        String isbn = ISBNIssue.getText().trim();
+        String idText = idIssue.getText().trim();
+
+        if (isbn.isEmpty() || idText.isEmpty() || jBorrowingDateChooser.getDate() == null || jReturningDateChooser.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Please enter all information", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        int id;
+        try {
+            id = Integer.parseInt(idText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!checkValidIsbn(isbn) || !checkValidId(id)) {
+            return;
+        }
+
+        try {
+            BookDao bd = new BookDao();
+            IssueBookDao ibd = new IssueBookDao();
+            StudentDao studentDao = new StudentDao();
+
+            if (!studentDao.isStudentExist(id)) {
+                JOptionPane.showMessageDialog(this, "Student does not exist", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (bd.isBookExist(isbn)) {
+                int quantity = bd.getBookQuantity(isbn);
+                if (quantity > 0) {
+                    if (!ibd.isAlreadyIssue(isbn, id)) {
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        String issuedate = df.format(jBorrowingDateChooser.getDate());
+                        String duedate = df.format(jReturningDateChooser.getDate());
+
+                        bd.updateQuantity(isbn, -1);
+
+                        Students student = studentDao.getAStudent(id);
+                        Books book = bd.getABook(isbn);
+
+                        IssueBook sib = new IssueBook(student, book, issuedate, duedate, "Borrowing");
+                        ibd.addNewStudentIssueBook(sib);
+
+                        JOptionPane.showMessageDialog(this, "Book issued successfully");
+
+                        clearInfor();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "This student already has this book");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "This book is currently unavailable");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Book does not exist");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
+
     }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
 
-    private void ISBNIssueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ISBNIssueFocusLost
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        if (!ISBNIssue.getText().equals("")) getBookDetails();
-    }//GEN-LAST:event_ISBNIssueFocusLost
-        
-    private void idIssueFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_idIssueFocusLost
-        // TODO add your handling code here:
-        if (!idIssue.getText().equals("")) getStudentDetails();
-    }//GEN-LAST:event_idIssueFocusLost
+        Home home = new Home();
+        home.setVisible(true);
+        home.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,36 +316,17 @@ public class issueBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField ISBNBook;
     private javax.swing.JTextField ISBNIssue;
-    private javax.swing.JTextField authorBook;
+    private javax.swing.JButton back;
     private javax.swing.JTextField idIssue;
-    private javax.swing.JTextField idStudent;
     private com.toedter.calendar.JDateChooser jBorrowingDateChooser;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private com.toedter.calendar.JDateChooser jReturningDateChooser;
-    private javax.swing.JTextField nameBook;
-    private javax.swing.JTextField nameStudent;
     private javax.swing.JPanel panelMain;
-    private javax.swing.JTextField quantityBook;
     private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;
-    private javax.swing.JTextField universityStudent;
     // End of variables declaration//GEN-END:variables
 }

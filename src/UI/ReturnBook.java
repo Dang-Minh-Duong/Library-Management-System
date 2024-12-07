@@ -6,74 +6,103 @@ package UI;
 
 import dao.IssueBookDao;
 import dao.BookDao;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.IssueBook;
-import model.ExtendedIssueBook;
-import java.awt.Desktop;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static javax.swing.text.html.HTML.Tag.SELECT;
+
+import model.ModelFactory;
 
 public class ReturnBook extends javax.swing.JFrame {
 
-    private IssueBookDao ibd;
+    private final IssueBookDao issueBookDao;
     private String isbn;
-    private String id;
+    private String idText;
 
     public ReturnBook() {
         initComponents();
-        ibd = new IssueBookDao();
+        issueBookDao = ModelFactory.createIssueBookDao();
+        ibd_ISBN.setEditable(false);
+        ibd_IssueDate.setEditable(false);
+        ibd_StudentID.setEditable(false);
+        ibd_DueDate.setEditable(false);
+    }
 
+    private void getInput() {
+        isbn = isbnBorrowing.getText().trim();
+        idText = idBorrowing.getText().trim();
+    }
+
+    private boolean checkNull() {
+        if (isbn.equals("")) {
+            JOptionPane.showMessageDialog(new JFrame(), "ISBN is require", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (idText.equals("")) {
+            JOptionPane.showMessageDialog(new JFrame(), "ID student is require", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkValidId() {
+        try {
+            int id = Integer.parseInt(idText); // Chuyển đổi ID từ String sang int
+            if (id <= 0) {
+                JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid ID", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return true;
+
+    }
+
+    private boolean isValidISBN13(String isbn) {
+        // Biểu thức chính quy để kiểm tra định dạng ISBN-13 có dấu gạch
+        String regex = "^(978|979)-\\d{1,5}-\\d{1,7}-\\d{1,7}-\\d{1}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(isbn);
+        return matcher.matches();
+    }
+
+    private boolean checkValidIsbn() {
+        if (!isValidISBN13(isbn)) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid ISBN-13 format (e.g., 978-3-16-148410-0).");
+            return false;
+        }
+        return true;
     }
 
     // Phương thức lấy thông tin sách đã mượn
     private void getIssueBookDetails() {
-        isbn = isbnBorrowing.getText();
-        id = idBorrowing.getText();
-        if (isbn.equals("")) {
-            JOptionPane.showMessageDialog(new JFrame(), "ISBN is require", "Error",
+        IssueBook ib = issueBookDao.getAIssueBookBorrowing(isbn, Integer.parseInt(idText));
+        if (ib == null) {
+            JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
                     JOptionPane.ERROR_MESSAGE);
-        }
-        if (id.equals("")) {
-            JOptionPane.showMessageDialog(new JFrame(), "ID student is require", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            clearInfo();
         } else {
+            ibd_ISBN.setText(isbn);
+            ibd_IssueDate.setText(ib.getIssueDate());
+            ibd_StudentID.setText(String.valueOf(ib.getStudent().getId()));
+            ibd_DueDate.setText(ib.getDueDate());
 
-            IssueBook ib = ibd.getAIssueBookDetail(isbn, Integer.parseInt(id));
-            if (ib == null) {
-                JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                clearInfo();
-            } else {
-                ibd_ISBN.setText(isbn);
-                ibd_IssueDate.setText(ib.getIssueDate());
-                ibd_StudentID.setText(String.valueOf(ib.getId()));
-                ibd_DueDate.setText(ib.getDueDate());
-            }
         }
     }
 
     // Phương thức trả sách
     private void updateStatus() {
-        ibd.updateBookStatus(isbn, Integer.parseInt(id));
+        issueBookDao.updateBookStatus(isbn, Integer.parseInt(idText));
     }
 
     // Cập nhật số lượng sách
     private void updateBookCount() {
-        BookDao bd = new BookDao();
-        bd.updateQuantity(isbn, 1);
+        BookDao bookDao = ModelFactory.createBookDao();
+        bookDao.updateQuantity(isbn, 1);
     }
 
     private void clearInfo() {
@@ -86,28 +115,18 @@ public class ReturnBook extends javax.swing.JFrame {
     }
 
     private void returnBook() {
-        isbn = isbnBorrowing.getText();
-        id = idBorrowing.getText();
-        if (isbn.equals("")) {
-            JOptionPane.showMessageDialog(new JFrame(), "ISBN is require", "Error",
+        IssueBook ib = issueBookDao.getAIssueBookBorrowing(isbn, Integer.parseInt(idText));
+        if (ib == null) {
+            JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
                     JOptionPane.ERROR_MESSAGE);
-        }
-        if (id.equals("")) {
-            JOptionPane.showMessageDialog(new JFrame(), "ID student is require", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            clearInfo();
         } else {
-            IssueBook ib = ibd.getAIssueBookDetail(isbn, Integer.parseInt(id));
-            if (ib == null) {
-                JOptionPane.showMessageDialog(new JFrame(), "Issued book not found", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                clearInfo();
-            } else {
-                updateBookCount();
-                updateStatus();
-                JOptionPane.showMessageDialog(this, "Update Successfull");
-                clearInfo();
-            }
+            updateBookCount();
+            updateStatus();
+            JOptionPane.showMessageDialog(this, "Update Successfull");
+            clearInfo();
         }
+
     }
 
     /**
@@ -379,16 +398,20 @@ public class ReturnBook extends javax.swing.JFrame {
             .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setSize(new java.awt.Dimension(1059, 526));
+        setSize(new java.awt.Dimension(1059, 546));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void returnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookActionPerformed
-        returnBook();
+        getInput();
+        if (checkNull() && checkValidId() && checkValidIsbn())
+            returnBook();
     }//GEN-LAST:event_returnBookActionPerformed
 
     private void findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findActionPerformed
-        getIssueBookDetails();
+        getInput();
+        if (checkNull() && checkValidId() && checkValidIsbn())
+            getIssueBookDetails();
     }//GEN-LAST:event_findActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

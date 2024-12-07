@@ -63,5 +63,8 @@ public class Books {
     public String getDescription() {
         return description;
     }
-
+    
+    public String getGoogleBooksLink() {
+        return "https://books.google.com/books?vid=ISBN" + ISBN;
+    }
 }

@@ -5,17 +5,18 @@
 package UI;
 
 import API.GoogleBooksService;
+import QR.QRCodeGenerator;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.Books;
-
-
-
 
 /**
  *
@@ -27,9 +28,12 @@ public class BookInfor extends javax.swing.JFrame {
      * Creates new form BookInfor
      */
     private final GoogleBooksService service = new GoogleBooksService();
+    private Books book; // Khai báo biến book toàn cục
+
     public BookInfor() {
         initComponents();
     }
+
     private boolean isValidISBN13(String isbn) {
         // Biểu thức chính quy để kiểm tra định dạng ISBN-13 có dấu gạch
         String regex = "^(978|979)-\\d{1,5}-\\d{1,7}-\\d{1,7}-\\d{1}$";
@@ -37,33 +41,42 @@ public class BookInfor extends javax.swing.JFrame {
         Matcher matcher = pattern.matcher(isbn);
         return matcher.matches();
     }
+
     private void search() throws Exception {
-        String isbn = txt_ISBN.getText();
+        String isbn = txt_ISBN.getText().trim();
         if (!isValidISBN13(isbn)) {
             JOptionPane.showMessageDialog(this, "Please enter a valid ISBN-13 format (e.g., 978-3-16-148410-0).");
-            // Dừng lại nếu ISBN không hợp lệ
+            return;
         }
         if (isbn.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter ISBN!");
-            
+            return;
         }
-        else {
-            Books book = service.searchBookByISBN(isbn);
-            if (book == null) {
-                JOptionPane.showMessageDialog(this, "Book not found");
+        book = service.searchBookByISBN(isbn);
+        if (book == null) {
+            JOptionPane.showMessageDialog(this, "Book not found");
+        } else {
+            isbn_txt.setText(isbn);
+            title_txt.setText(book.getName());
+            author_txt.setText(book.getAuthor());
+            description_txt.setText(book.getDescription());
+            description_txt.setLineWrap(true); // Bật tính năng xuống dòng 
+            description_txt.setWrapStyleWord(true); // Xuống dòng theo từ 
+            description_txt.setEditable(false); // Không cho phép chỉnh sửa nội dung
+            if (book.getImageUrl() != null) {
+                try {
+                    BufferedImage img = ImageIO.read(new URL(book.getImageUrl()));
+                    ImageIcon icon = new ImageIcon(img);
+                    image.setIcon(icon);
+                } catch (Exception e) {
+                    image.setIcon(null);
+                    JOptionPane.showMessageDialog(this, "Failed to load image.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
-                isbn_txt.setText(isbn);
-                title_txt.setText(book.getName());
-                author_txt.setText(book.getAuthor());
-                description_txt.setText(book.getDescription());
-                if (book.getImageUrl() != null) {
-                        ImageIcon icon = new ImageIcon(new URL(book.getImageUrl()));
-                        image.setIcon(icon);
-                    }
+                image.setIcon(null);
             }
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,7 +90,6 @@ public class BookInfor extends javax.swing.JFrame {
         back = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         searchBook = new rojerusan.RSMaterialButtonCircle();
         jLabel2 = new javax.swing.JLabel();
         isbn_txt = new javax.swing.JLabel();
@@ -91,6 +103,7 @@ public class BookInfor extends javax.swing.JFrame {
         qrButton = new rojerusan.RSMaterialButtonCircle();
         jScrollPane2 = new javax.swing.JScrollPane();
         description_txt = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,8 +133,6 @@ public class BookInfor extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 9, Short.MAX_VALUE)
         );
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/newIcon/search-interface-symbol.png"))); // NOI18N
 
         searchBook.setBackground(new java.awt.Color(255, 51, 51));
         searchBook.setText("Search");
@@ -154,6 +165,8 @@ public class BookInfor extends javax.swing.JFrame {
         description_txt.setRows(5);
         jScrollPane2.setViewportView(description_txt);
 
+        jLabel6.setText("Image:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,24 +186,24 @@ public class BookInfor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
                                 .addGap(36, 36, 36)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(isbn_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(title_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(author_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(123, 123, 123)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(153, 153, 153)
                                 .addComponent(txt_ISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(48, 48, 48)
                                 .addComponent(searchBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(53, 53, 53)
                                 .addComponent(qrButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(95, Short.MAX_VALUE))
+                        .addContainerGap(248, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -209,12 +222,10 @@ public class BookInfor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txt_ISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(searchBook, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(qrButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_ISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchBook, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(qrButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -233,8 +244,13 @@ public class BookInfor extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                        .addGap(14, 14, 14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -244,8 +260,6 @@ public class BookInfor extends javax.swing.JFrame {
         // TODO add your handling code here:
         Home home = new Home();
         home.setVisible(true);
-        home.pack();
-        home.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 
@@ -260,7 +274,19 @@ public class BookInfor extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBookActionPerformed
 
     private void qrButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qrButtonActionPerformed
-        // TODO add your handling code here:
+        if (book != null && book.getGoogleBooksLink() != null) {
+            String link = book.getGoogleBooksLink();
+            BufferedImage qrImage = QRCodeGenerator.generateQRCodeImage(link);
+
+            if (qrImage != null) {
+                ImageIcon qrIcon = new ImageIcon(qrImage);
+                JOptionPane.showMessageDialog(this, new JLabel(qrIcon), "QR Code", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Cannot generate QR code.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Book information is not available to generate QR Code.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_qrButtonActionPerformed
 
     /**
@@ -304,11 +330,11 @@ public class BookInfor extends javax.swing.JFrame {
     private javax.swing.JTextArea description_txt;
     private javax.swing.JLabel image;
     private javax.swing.JLabel isbn_txt;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;

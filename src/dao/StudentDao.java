@@ -16,18 +16,18 @@ import model.Students;
  * @author DMX
  */
 public class StudentDao {
+
     public List<Students> getAllStudents() {
         List<Students> students = new ArrayList<>();
         String query = "SELECT * FROM student";
 
         try (Connection con = DBconnection.getConnection(); // Gọi kết nối từ DatabaseConnection
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(query)) {
+                 Statement st = con.createStatement(); ResultSet rs = st.executeQuery(query)) {
 
             while (rs.next()) {
                 int Id = rs.getInt("ID");
                 String name = rs.getString("Name");
-                String university = rs.getString("University");     
+                String university = rs.getString("University");
                 students.add(new Students(Id, name, university));
             }
         } catch (Exception e) {
@@ -35,13 +35,12 @@ public class StudentDao {
         }
         return students;
     }
-    
+
     // Thêm sinh viên.
     public boolean addStudent(Students student) {
         String query = "INSERT INTO student (ID, Name, University) VALUES (?, ?, ?)";
 
-        try (Connection con = DBconnection.getConnection();
-            PreparedStatement pst = con.prepareStatement(query)) {
+        try (Connection con = DBconnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setInt(1, student.getId());          // Gán ID là kiểu int
             pst.setString(2, student.getName());    // Gán Name
@@ -54,13 +53,12 @@ public class StudentDao {
             return false; // Nếu xảy ra lỗi, trả về false
         }
     }
-    
+
     // Cập nhật sinh viên.
     public boolean updateStudent(Students student) {
         String query = "UPDATE student SET Name = ?, University = ? WHERE ID = ?";
 
-        try (Connection con = DBconnection.getConnection();
-            PreparedStatement pst = con.prepareStatement(query)) {
+        try (Connection con = DBconnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setString(1, student.getName());        // Gán Name
             pst.setString(2, student.getUniversity()); // Gán University
@@ -73,13 +71,12 @@ public class StudentDao {
             return false; // Nếu xảy ra lỗi, trả về false
         }
     }
-    
+
     // Xóa sinh viên.
     public boolean deleteStudent(int studentId) {
         String query = "DELETE FROM student WHERE ID = ?";
 
-        try (Connection con = DBconnection.getConnection();
-            PreparedStatement pst = con.prepareStatement(query)) {
+        try (Connection con = DBconnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
 
             pst.setInt(1, studentId); // Gán ID vào câu truy vấn
 
@@ -90,13 +87,12 @@ public class StudentDao {
             return false; // Nếu xảy ra lỗi, trả về false
         }
     }
+
     public int getNumberOfStudent() {
         int count = 0;
         String countQuery = "SELECT COUNT(*) FROM student";
 
-        try (Connection con = DBconnection.getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery(countQuery)) {
+        try (Connection con = DBconnection.getConnection(); Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(countQuery)) {
 
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -108,15 +104,12 @@ public class StudentDao {
 
         return count;
     }
-   
 
     public Students getAStudent(int id) {
         Students student = null;
         String query = String.format("SELECT * FROM student WHERE id = %d", id);
 
-        try (Connection con = DBconnection.getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (Connection con = DBconnection.getConnection(); Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
 
             if (rs.next()) {
                 student = new Students(id, rs.getString("name"), rs.getString("university"));
@@ -127,5 +120,19 @@ public class StudentDao {
         }
 
         return student;
+    }
+
+    public boolean isStudentExist(int studentId) throws ClassNotFoundException {
+        String query = "SELECT COUNT(*) FROM student WHERE ID = ?";
+        try (Connection conn = DBconnection.getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, studentId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Nếu có ít nhất một bản ghi, trả về true
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Nếu không có sinh viên với ID này
     }
 }

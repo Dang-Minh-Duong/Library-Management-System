@@ -1,18 +1,17 @@
-
 package UI;
+
 import dao.AdminDao;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
+import model.ModelFactory;
 
 public class SignUp extends javax.swing.JFrame {
 
- 
     public SignUp() {
         initComponents();
     }
 
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -181,13 +180,13 @@ public class SignUp extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 113, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 126, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,28 +197,27 @@ public class SignUp extends javax.swing.JFrame {
         Login LoginFrame = new Login();
         LoginFrame.setVisible(true);
         LoginFrame.pack();
-        LoginFrame.setLocationRelativeTo(null); 
+        LoginFrame.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
         // TODO add your handling code here:
-        AdminDao ad = new AdminDao();
+        AdminDao adminDao = ModelFactory.createAdminDao();
         String fullNameText = fullNameField.getText();
         String emailText = emailField.getText();
         String passwordText = passwordField.getText();
         if (fullNameText.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "Full name is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-        }
-        else if (emailText.equals("")) {
+                    JOptionPane.ERROR_MESSAGE);
+        } else if (emailText.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "Email address is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         } else if (passwordText.equals("")) {
             JOptionPane.showMessageDialog(new JFrame(), "Password is require", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         } else {
-            if (ad.insertInfoLogin(fullNameText, emailText, passwordText)) {
+            if (adminDao.insertInfoLogin(fullNameText, emailText, passwordText)) {
                 fullNameField.setText("");
                 emailField.setText("");
                 passwordField.setText("");
@@ -229,13 +227,12 @@ public class SignUp extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         }
-            
+
     }//GEN-LAST:event_SignUpButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoginButton;

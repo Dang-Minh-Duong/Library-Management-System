@@ -7,14 +7,15 @@ package UI;
 import API.GoogleBooksService;
 import dao.BookDao;
 import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+
 import javax.swing.table.TableModel;
 import model.Books;
+import model.ModelFactory;
 
 /**
  *
@@ -43,7 +44,7 @@ public class ManageBooks extends javax.swing.JFrame {
 
     // To set the book details into the table.
     public void setBookDetailsToTable() {
-        BookDao bookDao = new BookDao();
+        BookDao bookDao = ModelFactory.createBookDao();
         List<Books> books = bookDao.getAllBooks();
 
         model = (DefaultTableModel) tb_booksDetail.getModel();
@@ -53,6 +54,7 @@ public class ManageBooks extends javax.swing.JFrame {
             Object[] row = {book.getISBN(), book.getName(), book.getAuthor(), book.getQuantity()};
             model.addRow(row);
         }
+        tb_booksDetail.setDefaultEditor(Object.class, null); // Không cho phép edit bảng
     }
 
     // Phuong thuc xu ly them sach.
@@ -85,9 +87,9 @@ public class ManageBooks extends javax.swing.JFrame {
         }
 
         Books book = new Books(isbn, name, author, quantity);
-        BookDao bookDAO = new BookDao();
+        BookDao bookDao = ModelFactory.createBookDao();
 
-        if (bookDAO.addBook(book)) {
+        if (bookDao.addBook(book)) {
             JOptionPane.showMessageDialog(this, "Add book successful!", "Message", JOptionPane.INFORMATION_MESSAGE);
             setBookDetailsToTable(); // Cập nhật bảng
 
@@ -129,9 +131,9 @@ public class ManageBooks extends javax.swing.JFrame {
         // Tạo đối tượng Book từ dữ liệu nhập
         Books book = new Books(isbn, name, author, quantity);
 
-        // Gọi phương thức updateBook từ BookDAO
-        BookDao bookDAO = new BookDao();
-        boolean success = bookDAO.updateBook(book);
+        // Gọi phương thức updateBook từ BookDao
+        BookDao bookDao = ModelFactory.createBookDao();
+        boolean success = bookDao.updateBook(book);
 
         // Thông báo kết quả
         if (success) {
@@ -151,23 +153,45 @@ public class ManageBooks extends javax.swing.JFrame {
     }
 
     // Delete book.
+    // Delete book.
     private void deleteBook() {
         int selectedRow = tb_booksDetail.getSelectedRow(); // Lấy dòng được chọn trong bảng
+        String isbnText = txt_ISBN.getText().trim(); // Lấy giá trị từ textField và loại bỏ khoảng trắng
 
-        if (selectedRow == -1) { // Nếu không có dòng nào được chọn
-            JOptionPane.showMessageDialog(this, "Please select a book to delete", "Message", JOptionPane.WARNING_MESSAGE);
-            return; // Dừng lại nếu không có dòng được chọn
+        // Nếu không có ISBN nhập vào và không có dòng nào được chọn, yêu cầu nhập ISBN hoặc chọn sách
+        if (isbnText.isEmpty() && selectedRow == -1) { // Nếu không có dòng nào được chọn
+            JOptionPane.showMessageDialog(this, "Please select a book to delete or enter a ISBN to delete!", "Message", JOptionPane.INFORMATION_MESSAGE);
+            return; // Dừng lại nếu không có dòng được chọn và không nhập ISBN.
         }
 
-        // Lấy ISBN từ dòng được chọn (cột đầu tiên là ISBN)
-        String isbn = (String) model.getValueAt(selectedRow, 0);
+        // Kiểm tra định dạng ISBN hợp lệ (13 ký tự và có dấu gạch ngang)
+        if (!isbnText.isEmpty() && !isValidISBN13(isbnText)) {
+            JOptionPane.showMessageDialog(this, "ISBN must have the correct format (13 characters with hyphens)", "Message", JOptionPane.INFORMATION_MESSAGE);
+            return; // Dừng lại nếu ISBN không hợp lệ
+        }
+
+        // Nếu có ISBN nhập vào, sử dụng ISBN từ textField
+        String isbn = isbnText;
+
+        // Nếu có dòng được chọn trong bảng, lấy ISBN từ bảng
+        if (selectedRow != -1) {
+            isbn = (String) model.getValueAt(selectedRow, 0); // Lấy ISBN từ bảng
+        }
+
+        // Kiểm tra xem sách có tồn tại trong cơ sở dữ liệu không
+        BookDao bookDao = ModelFactory.createBookDao();
+        boolean bookExists = bookDao.isBookExist(isbn); // Kiểm tra sự tồn tại của sách trong cơ sở dữ liệu
+        if (!bookExists) {
+            JOptionPane.showMessageDialog(this, "Book not found", "Message", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
         // Xác nhận người dùng muốn xóa
         int confirm = JOptionPane.showConfirmDialog(this, "Do you want to delete this book?", "Confirm", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            BookDao bookDAO = new BookDao(); // Khởi tạo đối tượng BookDAO
-            boolean success = bookDAO.deleteBook(isbn); // Gọi phương thức deleteBook() trong BookDAO
+
+            boolean success = bookDao.deleteBook(isbn); // Gọi phương thức deleteBook() trong BookDao
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Delete successful", "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -180,15 +204,21 @@ public class ManageBooks extends javax.swing.JFrame {
                 txt_bookName.setText("");
                 txt_authorName.setText("");
                 txt_quantity.setText(""); // Xóa textField số lượng
+
+                // Khóa nút Update.
+                updateBook.setEnabled(false);
+
+                // Mở edit ISBN.
+                txt_ISBN.setEditable(true);
             } else {
-                JOptionPane.showMessageDialog(this, "Fail to delete book", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Fail to delete this book", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     // Tìm kiếm sách trong cơ sở dữ liệu
     private Books searchBookInDatabase(String isbn) {
-        BookDao bookDao = new BookDao();
+        BookDao bookDao = ModelFactory.createBookDao();
         List<Books> books = bookDao.getAllBooks();
 
         for (Books book : books) {
@@ -541,7 +571,7 @@ public class ManageBooks extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(1087, 638));
+        setSize(new java.awt.Dimension(1087, 649));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -572,8 +602,6 @@ public class ManageBooks extends javax.swing.JFrame {
             txt_authorName.setText("");
             txt_quantity.setText("");
 
-            // Mở trường ISBN để không cho phép chỉnh sửa
-            txt_ISBN.setEditable(true);
         } else {
             selectedRow = rowNo;
 
@@ -584,8 +612,6 @@ public class ManageBooks extends javax.swing.JFrame {
             txt_authorName.setText(model.getValueAt(rowNo, 2).toString());
             txt_quantity.setText(model.getValueAt(rowNo, 3).toString());
 
-            // Khóa trường ISBN để không cho phép chỉnh sửa
-            txt_ISBN.setEditable(false);
         }
 
     }//GEN-LAST:event_tb_booksDetailMouseClicked

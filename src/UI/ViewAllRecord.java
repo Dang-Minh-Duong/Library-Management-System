@@ -3,44 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package UI;
+
 import dao.IssueBookDao;
-import model.ExtendedIssueBook;
-import java.awt.Desktop;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.IssueBook;
+import model.ModelFactory;
 
 public class ViewAllRecord extends javax.swing.JFrame {
+    
+    private final DefaultTableModel d;
+    private final IssueBookDao issueBookDao = ModelFactory.createIssueBookDao();
 
-    
-    private DefaultTableModel d;
-    private IssueBookDao ibd = new IssueBookDao();
-    
     // Constructor mặc định
     public ViewAllRecord() {
         initComponents();
         d = (DefaultTableModel) RecordTable.getModel();
         RecordLoad();
-        
+        fromDateChooser.getDateEditor().setEnabled(false);  // Tắt nhập tay
+        toDateChooser.getDateEditor().setEnabled(false);  // Tắt nhập tay
+
     }
 
-    
     // Xóa dữ liệu cũ trong bảng
     private void clearTable() {
         d.setRowCount(0);
@@ -49,40 +36,46 @@ public class ViewAllRecord extends javax.swing.JFrame {
     // Tải dữ liệu vào bảng
     private void RecordLoad() {
         clearTable();
-        List<ExtendedIssueBook> eib = ibd.getAllRecords();
-        for (ExtendedIssueBook book : eib) { 
-            d.addRow(new Object[]{ 
-                book.getIsbn(), 
-                book.getBookName(), 
-                book.getStudentId(), 
-                book.getStudentName(), 
-                book.getIssueDate(), 
-                book.getDueDate(), 
-                book.getStatus() }); }
-        
+        List<IssueBook> eib = issueBookDao.getAllRecords();
+        for (IssueBook book : eib) {
+            d.addRow(new Object[]{
+                book.getBook().getISBN(),
+                book.getBook().getName(),
+                book.getStudent().getId(),
+                book.getStudent().getName(),
+                book.getIssueDate(),
+                book.getDueDate(),
+                book.getStatus()});
+        }
+        RecordTable.setDefaultEditor(Object.class, null); // Không cho phép edit bảng
     }
 
     // Tìm kiếm và hiển thị các bản ghi sách đã mượn theo khoảng ngày
     private void search() {
-        clearTable();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String fromDateStr = df.format(fromDate.getDate());
-        String toDateStr = df.format(toDate.getDate());
-        List <ExtendedIssueBook> eib = ibd.searchIssuedBooks(fromDateStr, toDateStr);
-        for (ExtendedIssueBook book : eib) { 
-            d.addRow(new Object[]{ 
-                book.getIsbn(), 
-                book.getBookName(), 
-                book.getStudentId(), 
-                book.getStudentName(), 
-                book.getIssueDate(), 
-                book.getDueDate(), 
-                book.getStatus() }); }
+        Date fromDate = fromDateChooser.getDate();
+        Date toDate = toDateChooser.getDate();
+        if (fromDate != null && toDate != null) {
+            clearTable();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String fromDateStr = df.format(fromDate);
+            String toDateStr = df.format(toDate);
+            List<IssueBook> eib = issueBookDao.searchIssuedBooks(fromDateStr, toDateStr);
+            for (IssueBook book : eib) {
+                d.addRow(new Object[]{
+                    book.getBook().getISBN(),
+                    book.getBook().getName(),
+                    book.getStudent().getId(),
+                    book.getStudent().getName(),
+                    book.getIssueDate(),
+                    book.getDueDate(),
+                    book.getStatus()});
+            }
+            fromDateChooser.setDate(null);
+            toDateChooser.setDate(null);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please choose date", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-
-
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,10 +91,11 @@ public class ViewAllRecord extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        rSMaterialButtonCircle1 = new rojerusan.RSMaterialButtonCircle();
+        resetButton = new rojerusan.RSMaterialButtonCircle();
         back = new javax.swing.JButton();
-        fromDate = new com.toedter.calendar.JDateChooser();
-        toDate = new com.toedter.calendar.JDateChooser();
+        fromDateChooser = new com.toedter.calendar.JDateChooser();
+        toDateChooser = new com.toedter.calendar.JDateChooser();
+        searchButton = new rojerusan.RSMaterialButtonCircle();
         panel_table = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         RecordTable = new rojeru_san.complementos.RSTableMetro();
@@ -124,11 +118,11 @@ public class ViewAllRecord extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("From Date :");
 
-        rSMaterialButtonCircle1.setBackground(new java.awt.Color(102, 153, 255));
-        rSMaterialButtonCircle1.setText("Search");
-        rSMaterialButtonCircle1.addActionListener(new java.awt.event.ActionListener() {
+        resetButton.setBackground(new java.awt.Color(255, 51, 51));
+        resetButton.setText("RESET");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonCircle1ActionPerformed(evt);
+                resetButtonActionPerformed(evt);
             }
         });
 
@@ -140,58 +134,67 @@ public class ViewAllRecord extends javax.swing.JFrame {
             }
         });
 
+        searchButton.setBackground(new java.awt.Color(102, 153, 255));
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(back)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)))
-                .addGap(459, 459, 459))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(191, 191, 191)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(toDate, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
-                .addComponent(rSMaterialButtonCircle1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(jLabel6)
+                        .addGap(227, 227, 227)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(246, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(114, 114, 114)
+                        .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fromDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(toDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rSMaterialButtonCircle1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(toDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(33, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(fromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
+                            .addComponent(jLabel6)
+                            .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(toDateChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fromDateChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 64, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         RecordTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -218,7 +221,7 @@ public class ViewAllRecord extends javax.swing.JFrame {
             panel_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_tableLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
 
@@ -241,10 +244,10 @@ public class ViewAllRecord extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rSMaterialButtonCircle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonCircle1ActionPerformed
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         clearTable();
-        search();
-    }//GEN-LAST:event_rSMaterialButtonCircle1ActionPerformed
+        RecordLoad();
+    }//GEN-LAST:event_resetButtonActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
@@ -252,7 +255,12 @@ public class ViewAllRecord extends javax.swing.JFrame {
         h.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
-   
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+        search();
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -292,7 +300,7 @@ public class ViewAllRecord extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojeru_san.complementos.RSTableMetro RecordTable;
     private javax.swing.JButton back;
-    private com.toedter.calendar.JDateChooser fromDate;
+    private com.toedter.calendar.JDateChooser fromDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
@@ -300,7 +308,8 @@ public class ViewAllRecord extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panel_table;
-    private rojerusan.RSMaterialButtonCircle rSMaterialButtonCircle1;
-    private com.toedter.calendar.JDateChooser toDate;
+    private rojerusan.RSMaterialButtonCircle resetButton;
+    private rojerusan.RSMaterialButtonCircle searchButton;
+    private com.toedter.calendar.JDateChooser toDateChooser;
     // End of variables declaration//GEN-END:variables
 }
